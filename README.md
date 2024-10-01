@@ -2,10 +2,10 @@ AI YP'24 [<Команда 27> <Предсказание движения цен 
 
 <Куратор, Елизавета Гаврилова> - @lizvladii, <>
 
-<Участник 1, Максим Архипов> — @pirici_pip, <Maksim-de>
+<Участник 1, Максим Архипов> — @pirici_pip, Maksim-de
 
 <Участник 2, Имя Фамиля> — @kazantsev_alexey, <аккаунт в GitHub>
 
-<Участник 3, Имя Фамиля> — @xpavlovsky, <apavlovskii>
+<Участник 3, Имя Фамиля> — @xpavlovsky, apavlovskii
 
 <Участник 4, Имя Фамиля> — @Ksesha0000, <аккаунт в GitHub>

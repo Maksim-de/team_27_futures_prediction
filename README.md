@@ -8,6 +8,6 @@ AI YP'24 [<Команда 27> <Предсказание движения цен 
 
 <Участник 2, Имя Фамиля> — @kazantsev_alexey, <аккаунт в GitHub>
 
-<Участник 3, Имя Фамиля> — @xpavlovsky, apavlovskii
+<Участник 3, Александр Павловский> — @xpavlovsky, apavlovskii
 
 <Участник 4, Ксения Балицкая> — @Ksesha0000, Kseniya-5

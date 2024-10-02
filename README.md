@@ -6,7 +6,7 @@ AI YP'24 [<Команда 27> <Предсказание движения цен 
 
 <Участник 1, Максим Архипов> — @pirici_pip, Maksim-de
 
-<Участник 2, Имя Фамиля> — @kazantsev_alexey, <аккаунт в GitHub>
+<Участник 2, Имя Фамиля> — @kazantsev_alexey, Kazantsev-Alexey
 
 <Участник 3, Александр Павловский> — @xpavlovsky, apavlovskii
 

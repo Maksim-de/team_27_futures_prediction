@@ -1,0 +1,23 @@
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# Virtual environments (Python)
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Logs and temporary files
+*.log
+*.tmp

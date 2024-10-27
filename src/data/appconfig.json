@@ -1,0 +1,3 @@
+{
+"query": "(oil AND (crude$ OR WTI$ OR BRENT$ OR OPEC$ OR petrol OR \"oil futures\" OR \"federal reserve\" OR \"EIA report\" OR \"market price\" OR \"Russia export\" OR \"China economy\" OR hurricane OR Sanctions OR \"alternative energy sources\" OR \"Unemployment rate\" OR GDP$)) site_type:news language:english is_first:true domain_rank:<200000"
+}

@@ -36,14 +36,24 @@ def download_and_append_data(ticker, name):
     global all_data
     
     data = yf.download(ticker, start=start_date, end=end_date)    
-    data['Ticker'] = name
-    
+    data['ticker'] = ticker
+    data['asset_name'] = name
     all_data = pd.concat([all_data, data])
 
 for name, ticker in tickers.items():
     download_and_append_data(ticker, name)
     
-all_data = all_data.reset_index().rename(columns={'Date':'business_date'})
+all_data = all_data.reset_index()
+
+snake_case = {'Open':'open',
+              'High':'high',
+              'Low':'low',
+              'Close':'close',
+              'Adj Close':'adj_close',
+              'Volume':'volume',
+              'Date':'business_date'
+}
+all_data = all_data.rename(columns=snake_case)
 
 # delete previous data
 with engine.connect() as connection:
@@ -53,4 +63,3 @@ with engine.connect() as connection:
 all_data.to_sql(name='market_data', con=engine, if_exists='append', index=False)
 
 print("Historical data loaded into DB")
-all_data

@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field, Literal, List
-from typing import Optional
+from pydantic import BaseModel, Field
+from typing import Optional, Literal, List
 from datetime import date
 
 
@@ -167,8 +167,8 @@ class DataStatusResponse(BaseModel):
 
 
 NewsLoadRequestList = List[NewsLoadRequest]
-NewsSentimentRequestList = List(NewsSentimentRequest)
+NewsSentimentRequestList = List[NewsSentimentRequest]
 TickerPriceRequestList = List[TickerPriceRequest]
 LoadStatusRequestList = List[LoadStatusRequest]
 MessageResponseList = List[MessageResponse]
-DataStatusResponseList = List(DataStatusResponse)
+DataStatusResponseList = List[DataStatusResponse]

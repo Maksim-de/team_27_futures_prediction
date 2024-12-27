@@ -1,9 +1,10 @@
-from pydantic import BaseModel, Field, Dict, List
-from typing import Union
+from pydantic import BaseModel, Field, ConfigDict
+from typing import Union, Dict, List
 from datetime import date
 
 
 class Model(BaseModel):
+    #model_config = ConfigDict(protected_namespaces=())
     model_name: str = Field(..., title="Unique name of the model")
     model_description: str = Field(..., title="Model description")
     file_name: str = Field(..., title="Model file name")
@@ -68,6 +69,6 @@ class PredicitonResponse(BaseModel):
         }
 
 
-ModelList = List(Model)
-PredictionRequestList = List(PredicitonRequest)
-PredictionResponseList = List(PredicitonResponse)
+ModelList = List[Model]
+PredictionRequestList = List[PredicitonRequest]
+PredictionResponseList = List[PredicitonResponse]

@@ -154,8 +154,8 @@ class NewsSentimentResponse(BaseModel):
 
 class DataStatusResponse(BaseModel):
     item_id: str = Field(..., title="Item id")
-    min_available_date: date = Field(..., Title="Business Date")
-    max_available_date: date = Field(..., Title="Business Date")
+    min_available_date: date = Field(..., Title="Min available Date")
+    max_available_date: date = Field(..., Title="Max available Date")
     class Config:
         schema_extra = {
             "example": {

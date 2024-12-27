@@ -5,9 +5,12 @@ from pydentic_schemas.data_schemas import LoadStatusRequestList, MessageResponse
 from pydentic_schemas.data_schemas import NewsSentimentRequestList, NewsSentimentResponse, DataStatusResponseList
 from services.data_service import download_prices, download_news, check_download_status, get_id_dates, get_price_table
 from services.data_service import get_news_sentiment_table, get_data_status
+from services.data_service import run_price_inference, run_sentiment_inference
+from logging import getLogger
 
 
 router = APIRouter()
+logger = getLogger("price_prediction_api")
 
 
 @router.post("/download_prices",
@@ -22,6 +25,8 @@ async def download_prices_handler(request: TickerPriceRequestList):
     :param request: TickerPriceRequestList, see data_schemas.py
     :return [{"item_id": str, "message": str}]
     """
+    logger.info("Download prices endpoint (+)")
+
     ticker_id, date_from, date_to = get_id_dates(request)
     try:
         result = download_prices(ticker_id, date_from, date_to)
@@ -31,6 +36,8 @@ async def download_prices_handler(request: TickerPriceRequestList):
             detail=f"Error: {e}")
 
     response = [{"item_id": ticker_id, "message": result}]
+
+    logger.info("Download prices endpoint (-)")
     return response
 
 
@@ -47,6 +54,8 @@ async def download_news_handler(request: NewsLoadRequestList):
     :param request: NewsLoadRequestList, see data_schemas.py
     :return: [{"item_id": str, "message": str}]
     """
+    logger.info("Download news endpoint (+)")
+
     query_id, date_from, date_to = get_id_dates(request)
     try:
         result = download_news(query_id, date_from, date_to)
@@ -56,6 +65,8 @@ async def download_news_handler(request: NewsLoadRequestList):
             detail=f"Error: {e}")
 
     response = [{"item_id": query_id, "message": result}]
+    logger.info("Download news endpoint (-)")
+
     return response
 
 
@@ -71,6 +82,8 @@ async def check_download_status_handler(request: LoadStatusRequestList):
     :return: [{"item_id": str, "message": str}]
     """
     # Only process first entry from the request list. Update to multiprocessing later
+    logger.info("Check download status endpoint (+)")
+
     rqs = request[0]
     item_id = rqs.item_id
     try:
@@ -81,6 +94,63 @@ async def check_download_status_handler(request: LoadStatusRequestList):
             detail=f"Error: {e}")
 
     response = [{"item_id": item_id, "message": result}]
+    logger.info("Check download status endpoint (-)")
+
+    return response
+
+
+@router.post("/run_sentiment_inference",
+            response_model=MessageResponseList,
+            status_code=status.HTTP_200_OK,
+            summary="Retrieve prices of a ticker for the period")
+async def run_sentiment_inference_handle(request: NewsSentimentRequestList):
+    """
+    Run the process of calculating Finbert sentiment scores for news over specified period
+    and store derived values in database
+
+    :param request: NewsSentimentRequestList, see data_schemas.py
+    :return: [{"item_id": str, "message": str}]
+    """
+    logger.info("Run sentiment inference endpoint (+)")
+
+    query_id, date_from, date_to = get_id_dates(request)
+    try:
+        result = run_sentiment_inference(query_id, date_from, date_to)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Error: {e}")
+
+    response = [{"item_id": query_id, "message": result}]
+    logger.info("Run sentiment inference endpoint (-)")
+
+    return response
+
+
+@router.post("/run_price_inference",
+                 response_model=PriceTableResponse,
+                 status_code=status.HTTP_200_OK,
+                 summary="Retrieve prices of a ticker for the period")
+async def run_price_inference_handler(request: TickerPriceRequestList):
+    """
+    Run technical analysis for ticker prices over specified period and store derived values in database
+
+    :param request: TickerPriceRequestList, see data_schemas.py
+    :return: [{"item_id": str, "message": str}]
+    """
+    logger.info("Run price inference endpoint (+)")
+
+    ticker_id, date_from, date_to = get_id_dates(request)
+    try:
+        result = run_price_inference(ticker_id, date_from, date_to)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Error: {e}")
+
+    response = [{"item_id": ticker_id, "message": result}]
+    logger.info("Run sentiment inference endpoint (-)")
+
     return response
 
 
@@ -95,6 +165,8 @@ async def get_price_table_handler(request: TickerPriceRequestList):
     :param request: TickerPriceRequestList, see data_schemas.py
     :return: PriceTableResponse, see data_schemas.py
     """
+    logger.info("Get Price Table endpoint (+)")
+
     ticker_id, date_from, date_to = get_id_dates(request)
     try:
         result = get_price_table(ticker_id, date_from, date_to)
@@ -102,6 +174,7 @@ async def get_price_table_handler(request: TickerPriceRequestList):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=f"Error: {e}")
+    logger.info("Get Price Table endpoint (-)")
 
     return result
 
@@ -117,6 +190,8 @@ async def get_news_sentiment(request: NewsSentimentRequestList):
     :param request: NewsSentimentRequestList, see data_schemas.py
     :return: a table in format of NewsSentimentResponse, see data_schemas.py
     """
+    logger.info("Get News Sentiment endpoint (+)")
+
     ticker_id, date_from, date_to = get_id_dates(request)
     try:
         result = get_news_sentiment_table(ticker_id, date_from, date_to)
@@ -124,6 +199,7 @@ async def get_news_sentiment(request: NewsSentimentRequestList):
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=f"Error: {e}")
+    logger.info("Get News Sentiment endpoint (-)")
 
     return result
 
@@ -137,7 +213,11 @@ async def get_data_status_handler():
     Return data intervals for which ticker and news data is available in the DB.
     :return: a list in format DataStatusResponse, see data_schemas.py
     """
+    logger.info("Get data Status endpoint (+)")
+
     result = get_data_status()
+
+    logger.info("Get data Status endpoint (-)")
     return result
 
 

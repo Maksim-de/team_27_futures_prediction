@@ -7,6 +7,7 @@ from services.data_service import download_prices, download_news, check_download
 from services.data_service import get_news_sentiment_table, get_data_status
 from services.data_service import run_price_inference, run_sentiment_inference
 from logging import getLogger
+from datetime import date
 
 
 router = APIRouter()
@@ -28,6 +29,8 @@ async def download_prices_handler(request: TickerPriceRequestList):
     logger.info("Download prices endpoint (+)")
 
     ticker_id, date_from, date_to = get_id_dates(request)
+    logger.info(f"Will download prices for {ticker_id} from {date_from} to {date_to}")
+
     try:
         result = download_prices(ticker_id, date_from, date_to)
     except Exception as e:
@@ -74,18 +77,16 @@ async def download_news_handler(request: NewsLoadRequestList):
             response_model=MessageResponseList,
             status_code=status.HTTP_200_OK,
             summary="Download news data for the period")
-async def check_download_status_handler(request: LoadStatusRequestList):
+#async def check_download_status_handler(request: LoadStatusRequestList):
+async def check_download_status_handler(item_id: str):
     """
     Check status of the last download request
 
-    :param request: LoadStatusRequestList, see data_schemas.py
+    :param item_id: Id of the item to check download status for
     :return: [{"item_id": str, "message": str}]
     """
-    # Only process first entry from the request list. Update to multiprocessing later
-    logger.info("Check download status endpoint (+)")
 
-    rqs = request[0]
-    item_id = rqs.item_id
+    logger.info("Check download status endpoint (+)")
     try:
         result = check_download_status(item_id)
     except Exception as e:
@@ -158,7 +159,7 @@ async def run_price_inference_handler(request: TickerPriceRequestList):
             response_model=PriceTableResponse,
             status_code=status.HTTP_200_OK,
             summary="Retrieve prices of a ticker for the period")
-async def get_price_table_handler(request: TickerPriceRequestList):
+async def get_price_table_handler(ticker_id: str, date_from: date, date_to: date):
     """
     Retrieve prices for the ticker_id over the specified period. This is useful for displaying price charts in UI
 
@@ -167,7 +168,7 @@ async def get_price_table_handler(request: TickerPriceRequestList):
     """
     logger.info("Get Price Table endpoint (+)")
 
-    ticker_id, date_from, date_to = get_id_dates(request)
+    #ticker_id, date_from, date_to = get_id_dates(request)
     try:
         result = get_price_table(ticker_id, date_from, date_to)
     except Exception as e:
@@ -183,7 +184,7 @@ async def get_price_table_handler(request: TickerPriceRequestList):
             response_model=NewsSentimentResponse,
             status_code=status.HTTP_200_OK,
             summary="Retrieve finbert sentiments for the period")
-async def get_news_sentiment(request: NewsSentimentRequestList):
+async def get_news_sentiment(ticker_id: str, date_from: date, date_to: date):
     """
     Retrieve finbert sentiment data for the news related to the ticker over specified period (default last 30 days)
     Sentiment is calculated over different dimensions and lags. Check daily_finbert_sentiment table in the Database
@@ -192,7 +193,7 @@ async def get_news_sentiment(request: NewsSentimentRequestList):
     """
     logger.info("Get News Sentiment endpoint (+)")
 
-    ticker_id, date_from, date_to = get_id_dates(request)
+    #ticker_id, date_from, date_to = get_id_dates(request)
     try:
         result = get_news_sentiment_table(ticker_id, date_from, date_to)
     except Exception as e:

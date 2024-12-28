@@ -25,5 +25,6 @@ async def root():
 
 
 if __name__ == "__main__":
-    logger.info("Starting the application")
+    logger.info("Starting the application...")
+    #DB_CONFIG, APP_CONFIG = db_config.set_config()
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

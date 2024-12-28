@@ -7,3 +7,5 @@ python-dotenv~=1.0
 typing~=3.7.4.3
 aiohttp~=3.11.10
 asyncio
+pandas
+mariadb

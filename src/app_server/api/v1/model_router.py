@@ -1,8 +1,10 @@
 from fastapi import APIRouter, HTTPException, status
 #ensure the PYTHONPATH includes app_server.
 from pydentic_schemas.data_schemas import MessageResponseList
-from pydentic_schemas.model_schemas import ModelList, PredictionRequestList, PredictionResponseList
+from pydentic_schemas.model_schemas import ModelList, PredictionRequestList, PredicitonResponse, PredictionResponseList
 from services.model_service import train_ml_model, predict_price, list_models
+from datetime import date
+from typing import List
 
 
 router = APIRouter()
@@ -47,24 +49,34 @@ async def list_models_handler():
              response_model=PredictionResponseList,
              status_code=status.HTTP_200_OK,
              summary="Predict price of a ticker using a model")
-async def predict_price_handler(request: PredictionRequestList):
+async def predict_price_handler(model_name: str, item_id: str, start_date: date, end_date: date):
     """
     Predict price of a ticker using a model
 
     :param request: PredictionRequestList, see model_schemas.py
     :return: PredictionResponseList, see model_schemas.py
     """
-    rqs = request[0]
-    model_name = rqs.model_name
-    item_id = rqs.item_id
-    start_date = rqs.start_date
-    end_date = rqs.end_date
+    #rqs = request[0]
+    #model_name = rqs.model_name
+    #item_id = rqs.item_id
+    #start_date = rqs.start_date
+    #end_date = rqs.end_date
     try:
-        result = predict_price(model_name, item_id, start_date, end_date)
+        result_df = predict_price(model_name, item_id, start_date, end_date)
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=f"Error: {e}")
 
-    return result
+    predictions: List[PredicitonResponse] = [
+        PredicitonResponse(
+            model_name=model_name,
+            ticker_id=item_id,
+            prediction_date=row["business_date"].date(),
+            prediction_value=row["predict_value"],
+        )
+        for _, row in result_df.iterrows()
+    ]
+
+    return predictions
 

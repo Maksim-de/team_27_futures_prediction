@@ -2,6 +2,11 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 
 def setup_logging():
+    """
+    Set up logger with file handler and console handler
+
+    :return: logger
+    """
     logger = logging.getLogger("price_prediction_api")
     logger.setLevel(logging.INFO)
 

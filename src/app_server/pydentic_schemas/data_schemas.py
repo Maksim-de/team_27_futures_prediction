@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import Optional, Literal, List
-from datetime import date
+from datetime import date, datetime
 
 
 class NewsLoadRequest(BaseModel):
@@ -65,18 +65,22 @@ class MessageResponse(BaseModel):
 
 
 class PriceTableRow(BaseModel):
-    ticker_id: str = Field(..., title="Ticker id")
-    business_date: date = Field(..., Title="Business Date")
-    open: float = Field(..., title="Open Price")
-    close: float = Field(..., title="Close Price")
-    high: float = Field(..., title="High Price")
-    low: float = Field(..., title="Low Price")
+    open: Optional[float] = Field(...)
+    high: Optional[float] = Field(...)
+    low: Optional[float] = Field(...)
+    close: Optional[float] = Field(...)
+    adj_close: Optional[float] = Field(...)
+    volume: Optional[float] = Field(...)
+    ticker: str = Field(...)
+    asset_name: str = Field(...)
+    business_date: date = Field(...)
+    created_datetime: Optional[datetime] = Field(...)
 
     class Config:
         schema_extra = {
             "example": {
                 "business_date": "2024-12-05",
-                "ticker_id": "CL=F",
+                "ticker": "CL=F",
                 "open": 76.69,
                 "close": 76.08,
                 "high": 76.45,
@@ -104,9 +108,10 @@ class NewsSentimentRequest(BaseModel):
 
 
 class NewsSentimentResponseRow(BaseModel):
-    ticker_id: str = Field(..., title="Item id")
+    ticker: str = Field(..., title="Item id")
+    asset_name: str = Field(..., title="Asset Name")
     business_date: date = Field(..., Title="Business Date")
-    sentiment: str = Field(..., title="Average sentiment score for the day")
+    close: Optional[float] = Field(...)
     avg_finbert_sentiment: Optional[float] = Field(...)
     sentiment_std: Optional[float] = Field(...)
     weighted_avg_finbert_sentiment: Optional[float] = Field(...)
@@ -141,7 +146,8 @@ class NewsSentimentResponseRow(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "item_id": "CL=F",
+                "ticker": "BZ=F",
+                "asset_name": "BRENT",
                 "business_date": "2024-01-01",
                 "avg_finbert_sentiment": 0.188406,
                 "sentiment_std": 0.52698

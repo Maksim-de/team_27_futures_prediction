@@ -1,7 +1,7 @@
 from typing import Optional
 from datetime import date, datetime, timedelta
 from pydentic_schemas.data_schemas import PriceTableResponse, NewsSentimentResponseRow, NewsSentimentResponse
-from pydentic_schemas.data_schemas import DataStatusResponse
+from pydentic_schemas.data_schemas import DataStatusResponse, PriceTableRow
 from logging import getLogger
 from db.db_config import DB_CONFIG
 import mariadb
@@ -49,55 +49,106 @@ def get_price_table(ticker_id: str, date_from: Optional[date], date_to: Optional
         {"ticker_id": "BZ=F", "business_date": "2024-12-01", "open": 123, "close": 123, "high": 123, "low": 123},
         {"ticker_id": "BZ=F", "business_date": "2024-12-02", "open": 124, "close": 124, "high": 124, "low": 124}
     ]
-    return PriceTableResponse(data=data)
+    sql = f"""SELECT *
+                   FROM market_data
+                   where ticker = '{ticker_id}'
+                     and business_date between '{date_from}' and '{date_to}'        
+                       ORDER BY business_date"""
+    connection = mariadb.connect(**DB_CONFIG)
+    # Fetch the results
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        rowset = cursor.fetchall()
+        data_list = []
+
+        for row in rowset:
+            data_row = PriceTableRow(
+                open=row[0],
+                high=row[1],
+                low=row[2],
+                close=row[3],
+                adj_close=row[4],
+                volume=row[5],
+                ticker=row[6],
+                asset_name=row[7],
+                business_date=row[8],
+                created_datetime=row[9]
+            )
+            data_list.append(data_row)
+    finally:
+        connection.close()
+
+    return PriceTableResponse(data=data_list)
 
 
 def get_news_sentiment_table(ticker_id: str, date_from: Optional[date], date_to: Optional[date]):
-    example_row = NewsSentimentResponseRow(
-        ticker_id="BZ=F",
-        business_date=date(2024, 1, 1),
-        sentiment="Positive",
-        avg_finbert_sentiment=0.75,
-        sentiment_std=0.12,
-        weighted_avg_finbert_sentiment=0.80,
-        avg_finbert_sentiment_lag1=0.70,
-        weighted_avg_finbert_sentiment_lag1=0.78,
-        avg_finbert_sentiment_diff1=0.05,
-        weighted_avg_finbert_sentiment_diff1=0.02,
-        avg_finbert_sentiment_lag2=None,
-        weighted_avg_finbert_sentiment_lag2=None,
-        avg_finbert_sentiment_diff2=None,
-        weighted_avg_finbert_sentiment_diff2=None,
-        avg_finbert_sentiment_lag3=None,
-        weighted_avg_finbert_sentiment_lag3=None,
-        avg_finbert_sentiment_diff3=None,
-        weighted_avg_finbert_sentiment_diff3=None,
-        avg_finbert_sentiment_lag7=None,
-        weighted_avg_finbert_sentiment_lag7=None,
-        avg_finbert_sentiment_diff7=None,
-        weighted_avg_finbert_sentiment_diff7=None,
-        finbert_sentiment_acceleration=None,
-        weighted_finbert_sentiment_acceleration=None,
-        avg_finbert_sentiment_ma_7=0.72,
-        weighted_avg_finbert_sentiment_ma_7=0.76,
-        avg_finbert_sentiment_ma_15=0.70,
-        weighted_avg_finbert_sentiment_ma_15=0.74,
-        avg_finbert_sentiment_ma_30=0.68,
-        weighted_avg_finbert_sentiment_ma_30=0.70,
-        price_change=1.5,
-        avg_finbert_sentiment_ma_30_shifted_45=None,
-        weighted_avg_finbert_sentiment_ma_30_shifted_45=None,
-    )
 
-    return NewsSentimentResponse(data=[example_row])
+    sql = f"""SELECT *
+               FROM daily_finbert_sentiment
+               where ticker = '{ticker_id}'
+                 and business_date between '{date_from}' and '{date_to}'        
+                   ORDER BY business_date"""
+    connection = mariadb.connect(**DB_CONFIG)
+    # Fetch the results
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        rowset = cursor.fetchall()
+        data_list = []
+
+        for row in rowset:
+            data_row = NewsSentimentResponseRow(
+                ticker=row[0],
+                asset_name=row[1],
+                business_date=row[2],
+                close=row[3],
+                avg_finbert_sentiment=row[4],
+                sentiment_std=row[5],
+                weighted_avg_finbert_sentiment=row[6],
+                avg_finbert_sentiment_lag1=row[7],
+                weighted_avg_finbert_sentiment_lag1=row[8],
+                avg_finbert_sentiment_diff1=row[9],
+                weighted_avg_finbert_sentiment_diff1=row[10],
+                avg_finbert_sentiment_lag2=row[11],
+                weighted_avg_finbert_sentiment_lag2=row[12],
+                avg_finbert_sentiment_diff2=row[13],
+                weighted_avg_finbert_sentiment_diff2=row[14],
+                avg_finbert_sentiment_lag3=row[15],
+                weighted_avg_finbert_sentiment_lag3=row[16],
+                avg_finbert_sentiment_diff3=row[17],
+                weighted_avg_finbert_sentiment_diff3=row[18],
+                avg_finbert_sentiment_lag7=row[19],
+                weighted_avg_finbert_sentiment_lag7=row[20],
+                avg_finbert_sentiment_diff7=row[21],
+                weighted_avg_finbert_sentiment_diff7=row[22],
+                finbert_sentiment_acceleration=row[23],
+                weighted_finbert_sentiment_acceleration=row[24],
+                avg_finbert_sentiment_ma_7=row[25],
+                weighted_avg_finbert_sentiment_ma_7=row[26],
+                avg_finbert_sentiment_ma_15=row[27],
+                weighted_avg_finbert_sentiment_ma_15=row[28],
+                avg_finbert_sentiment_ma_30=row[29],
+                weighted_avg_finbert_sentiment_ma_30=row[30],
+                price_change=row[31],
+                avg_finbert_sentiment_ma_30_shifted_45=row[32],
+                weighted_avg_finbert_sentiment_ma_30_shifted_45=row[33]
+            )
+            data_list.append(data_row)
+    finally:
+        connection.close()
+
+    return NewsSentimentResponse(data=data_list)
 
 
 def get_data_status():
-    data = [{"item_id": "BZ-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"},
+    """data = [{"item_id": "BZ-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"},
             {"item_id": "CL-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"},
             {"item_id": "NEWS_BZ-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"},
             {"item_id": "NEWS_CL-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"}
-            ]
+            ]"""
     sql = """SELECT ticker, 
                     cast(min(business_date) as date) AS min_available_date, 
                     cast(max(business_date) as date) AS max_available_date

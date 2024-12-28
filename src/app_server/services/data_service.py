@@ -1,8 +1,10 @@
 from typing import Optional
 from datetime import date, datetime, timedelta
 from pydentic_schemas.data_schemas import PriceTableResponse, NewsSentimentResponseRow, NewsSentimentResponse
+from pydentic_schemas.data_schemas import DataStatusResponse
 from logging import getLogger
-
+from db.db_config import DB_CONFIG
+import mariadb
 
 logger = getLogger("price_prediction_api")
 
@@ -95,8 +97,38 @@ def get_data_status():
             {"item_id": "CL-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"},
             {"item_id": "NEWS_BZ-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"},
             {"item_id": "NEWS_CL-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"}
-    ]
-    return data
+            ]
+    sql = """SELECT ticker, 
+                    cast(min(business_date) as date) AS min_available_date, 
+                    cast(max(business_date) as date) AS max_available_date
+               FROM market_data  
+               GROUP BY ticker
+             UNION ALL
+             SELECT "NEWS_DATA" AS ticker,
+                    cast(min(published_timestamp) as date) AS min_available_date, 
+                    cast(max(published_timestamp) as date) AS max_available_date
+               FROM news_data       
+               ORDER BY ticker"""
+    connection = mariadb.connect(**DB_CONFIG)
+    # Fetch the results
+
+    try:
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        rowset = cursor.fetchall()
+        data_list = []
+
+        for row in rowset:
+            data_row = DataStatusResponse(
+                item_id=row[0],
+                min_available_date=row[1],
+                max_available_date=row[2]
+            )
+            data_list.append(data_row)
+    finally:
+        connection.close()
+
+    return data_list
 
 
 def run_price_inference():

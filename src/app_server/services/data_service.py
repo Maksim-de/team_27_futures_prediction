@@ -45,10 +45,10 @@ def check_download_status(item_id: str):
 
 
 def get_price_table(ticker_id: str, date_from: Optional[date], date_to: Optional[date]):
-    data = [
+    """data = [
         {"ticker_id": "BZ=F", "business_date": "2024-12-01", "open": 123, "close": 123, "high": 123, "low": 123},
         {"ticker_id": "BZ=F", "business_date": "2024-12-02", "open": 124, "close": 124, "high": 124, "low": 124}
-    ]
+    ]"""
     sql = f"""SELECT *
                    FROM market_data
                    where ticker = '{ticker_id}'

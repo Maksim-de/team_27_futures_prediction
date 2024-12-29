@@ -3,6 +3,10 @@ import json
 
 
 def set_config():
+    """
+    Retrieve env variables and set DB and APP configs
+    :return:
+    """
     DB_CONFIG = {
         'host': os.getenv('DB_HOST'),
         'user': os.getenv('DB_USER'),

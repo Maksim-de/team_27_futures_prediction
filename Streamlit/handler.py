@@ -12,8 +12,8 @@ API_URL = 'http://127.0.0.1:8000/api/v1'
 url_download_prices = API_URL + '/data/get_price_table'
 url_list_atributes = API_URL + '/model/list_inference_attributes'
 url_get_inference_attribute_values = API_URL + '/model/get_inference_attribute_values'
-url_get = API_URL + '/list_models'
-url_delete = API_URL + '/remove_all'
+url_get_list_model = API_URL + '/model/list_models'
+url_predict_price = API_URL + '/model/predict_price'
 
 async def get_data(url, params = None):
     async with aiohttp.ClientSession() as session:
@@ -167,15 +167,81 @@ def json_to_dataframe(json_data):
 #         st.plotly_chart(fig)
 
 
-def plot_data(df, indicators_df=None):
+# def plot_data(df, indicators_df=None):
+#     if df.empty:
+#         st.warning("Нет данных для отображения графика.")
+#         return
+#
+#     # Преобразование business_date в тип datetime, если это не так
+#     df['business_date'] = pd.to_datetime(df['business_date'])
+#
+#     # Сортировка DataFrame по дате
+#     df = df.sort_values(by='business_date')
+#
+#     chart_type = st.radio("Выберите тип графика", ["Линейный", "Свечной"], key="chart_type_radio")
+#
+#     fig = None  # Инициализация фигуры для дальнейшего использования
+#     if chart_type == "Линейный":
+#         fig = go.Figure(data=[go.Scatter(x=df['business_date'], y=df['close'], mode='lines', name='Цена')])
+#         fig.update_layout(title='График цены закрытия',
+#                           xaxis_title='Дата',
+#                           yaxis_title='Цена закрытия')
+#
+#
+#     elif chart_type == "Свечной":
+#         fig = go.Figure(data=[go.Candlestick(x=df['business_date'],
+#                                              open=df['open'],
+#                                              high=df['high'],
+#                                              low=df['low'],
+#                                              close=df['close'], name='Цена')])
+#         fig.update_layout(title='Свечной график цены',
+#                           xaxis_title='Дата',
+#                           yaxis_title='Цена')
+#
+#     main_chart_container = st.container()  # Создаем контейнер для основного графика
+#
+#     if indicators_df is not None and not indicators_df.empty:
+#         indicators_df['business_date'] = pd.to_datetime(indicators_df['business_date'])
+#         indicators_df = indicators_df.sort_values(by='business_date')
+#         separate_indicators = ["ATR", "BB_lower", "BB_middle", "BB_upper",
+#                                "CCI", "MACD", "MACD_Signal", "MOM",
+#                                "ROC", "rsi", "Stochastic_D",
+#                                "Stochastic_K", "volume", "Williams_R"]
+#
+#         indicators_to_add_main = {}  # Изменен на словарь
+#
+#         for attr_name in indicators_df['attribute_name'].unique():
+#             indicator_data = indicators_df[indicators_df['attribute_name'] == attr_name]
+#
+#             if attr_name in separate_indicators:
+#                 # Создаем отдельный график для индикаторов из списка separate_indicators
+#                 st.header(f"График индикатора {attr_name}")
+#                 indicator_fig = go.Figure(data=[
+#                     go.Scatter(x=indicator_data['business_date'], y=indicator_data['value'], mode='lines',
+#                                name=attr_name)])
+#                 indicator_fig.update_layout(title=f'График индикатора {attr_name}',
+#                                             xaxis_title='Дата',
+#                                             yaxis_title='Значение')
+#                 st.plotly_chart(indicator_fig)
+#
+#             else:
+#                 # Собираем индикаторы, которые нужно добавить на основной график
+#                 indicators_to_add_main[attr_name] = indicator_data # Сохраняем dataframe
+#
+#         if indicators_to_add_main and fig:
+#              for attr_name, indicator_data in indicators_to_add_main.items(): # Проходим по словарю
+#                 fig.add_trace(go.Scatter(x=indicator_data['business_date'], y=indicator_data['value'], mode='lines',
+#                                      name=attr_name)) # Теперь добавляем весь DataFrame за раз
+#     if fig:
+#         with main_chart_container:  # Выводим основной график в контейнере
+#             st.plotly_chart(fig)
+
+def plot_data(df, indicators_df=None, predicted_df=None):
     if df.empty:
         st.warning("Нет данных для отображения графика.")
         return
-
-    # Преобразование business_date в тип datetime, если это не так
     df['business_date'] = pd.to_datetime(df['business_date'])
 
-    # Сортировка DataFrame по дате
     df = df.sort_values(by='business_date')
 
     chart_type = st.radio("Выберите тип графика", ["Линейный", "Свечной"], key="chart_type_radio")
@@ -225,13 +291,20 @@ def plot_data(df, indicators_df=None):
                 st.plotly_chart(indicator_fig)
 
             else:
-                # Собираем индикаторы, которые нужно добавить на основной график
-                indicators_to_add_main[attr_name] = indicator_data # Сохраняем dataframe
+                indicators_to_add_main[attr_name] = indicator_data  # Сохраняем dataframe
 
         if indicators_to_add_main and fig:
-             for attr_name, indicator_data in indicators_to_add_main.items(): # Проходим по словарю
+            for attr_name, indicator_data in indicators_to_add_main.items():  # Проходим по словарю
                 fig.add_trace(go.Scatter(x=indicator_data['business_date'], y=indicator_data['value'], mode='lines',
-                                     name=attr_name)) # Теперь добавляем весь DataFrame за раз
+                                         name=attr_name))  # Теперь добавляем весь DataFrame за раз
+    if predicted_df is not None and not predicted_df.empty:
+        predicted_df['business_date'] = pd.to_datetime(predicted_df['prediction_date'])
+        predicted_df = predicted_df.sort_values(by='prediction_date')
+
+        if fig:
+            fig.add_trace(go.Scatter(x=predicted_df['prediction_date'], y=predicted_df['prediction_value'], mode='lines',
+                                     name='Предсказанное значение'))
+
     if fig:
         with main_chart_container:  # Выводим основной график в контейнере
             st.plotly_chart(fig)

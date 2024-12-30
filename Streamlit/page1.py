@@ -1,6 +1,7 @@
 import streamlit as st
 
 def run():
+    st.title(':blue[Команда 27. "Предсказание движения цен на фьючерсы на основе текстовых данных"]')
     st.header('Описание проекта')
     st.write(
         '''

@@ -37,8 +37,7 @@ def run():
         params = {"ticker_id": option, "date_from": start_date, "date_to": end_date}
         async def zap():
             logger.debug(f"Starting data fetching for ticker: {option}")
-            df_csv = st.session_state
-            if df_csv is not None:
+            if 'data' not in st.session_state:
                 results = await asyncio.gather(
                     get_data(url_download_prices, params),
                     get_data(url_list_atributes, params=''),
@@ -47,12 +46,16 @@ def run():
                 result_fit, option_indicators, option_model = results
                 df = json_to_dataframe(result_fit)
             else:
+                df_csv = st.session_state.data
                 results = await asyncio.gather(
                     get_data(url_list_atributes, params=''),
                     get_data(url_get_list_model, params='')
                 )
                 option_indicators, option_model = results
-                result_fit = df
+                df_csv['business_date'] = pd.to_datetime(df_csv['business_date'])
+                df = df_csv[(df_csv['ticker'] == option) & (df_csv['business_date'].dt.date > start_date) & (df_csv['business_date'].dt.date < end_date)]
+                st.subheader('Данные из загруженного файла')
+                st.dataframe(df_csv.head(5))
 
             logger.debug(f"End json_to_dataframe download price: {option}")
             atr = st.sidebar.multiselect('Доступные показатели', option_indicators, default = 'sma')

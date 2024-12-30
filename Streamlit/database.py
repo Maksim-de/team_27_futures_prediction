@@ -35,10 +35,14 @@ def print_data(df):
         st.write(f"Выводим {num_rows} строк:")
         st.dataframe(df.head(num_rows))
 
+def dataframe():
+    '''
+    Функция получения датафрейма из БД
+    '''
 
 def run():
     st.title(':blue[Команда 27. "Предсказание движения цен на фьючерсы на основе текстовых данных"]')
-    df = ''
+    df = dataframe()
 
     st.header('Полученный датасет из БД')
     print_data(df)

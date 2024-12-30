@@ -1,3 +1,5 @@
+import streamlit
+
 from handler import *
 import plotly.graph_objects as go
 import datetime
@@ -7,7 +9,7 @@ url_get_news = API_URL + '/data/get_news_sentiment'
 get_data_status = API_URL + '/data/get_data_status'
 
 
-def plot_data(df, indicators_df=None):
+def plot_data(df, Y, indicators_df=None):
     if df.empty:
         st.warning("Нет данных для отображения графика.")
         return
@@ -19,10 +21,9 @@ def plot_data(df, indicators_df=None):
     df = df.sort_values(by='business_date')
 
     fig = None  # Инициализация фигуры для дальнейшего использования
-    fig = go.Figure(data=[go.Scatter(x=df['business_date'], y=df['avg_finbert_sentiment'], mode='lines', name='Цена')])
-    fig.update_layout(title='Линейный график sentiment',
-                      xaxis_title='Дата',
-                      yaxis_title='avg_finbert_sentiment')
+    fig = go.Figure(data=[go.Scatter(x=df['business_date'], y=df[Y], mode='lines', name='Цена')])
+    fig.update_layout(xaxis_title='Дата',
+                      yaxis_title=Y)
 
     main_chart_container = st.container()  # Создаем контейнер для основного графика
     if fig:
@@ -31,6 +32,8 @@ def plot_data(df, indicators_df=None):
 
 
 def run():
+    streamlit.header('Анализ новостей')
+    st.write('Анализ новостей всегда берется из БД.')
     st.header('')
     tickers = ['CL=F', 'BZ=F', 'SPY', 'QQQ']
     option = st.sidebar.selectbox('Выберите тикер', tickers)
@@ -60,8 +63,17 @@ def run():
             async def zap():
                 result_fit = await get_data(url_get_news, params)
                 result2 = await get_data(url=get_data_status, params='')
+                st.write('Данные доступны по следующим данным:')
                 st.dataframe(result2)
                 df = json_to_dataframe(result_fit)
-                plot_data(df)
+
+                st.write('Стоимость тикера')
+                plot_data(df, 'close')
+
+                st.write('Линейный график sentiment')
+                plot_data(df, 'avg_finbert_sentiment')
+
+                st.write('Описательнас статистика')
+                st.dataframe(df.describe(include=['float', 'int']))
 
             asyncio.run(zap())

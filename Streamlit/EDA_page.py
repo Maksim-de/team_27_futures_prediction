@@ -42,7 +42,6 @@ def run(flag):
 
 
     async def zap(flag):
-        option_indicators = 'option_indicators'
         logger.debug(f"Starting data fetching for ticker: {option}")
         if flag == 1: # БД
             results = await asyncio.gather(
@@ -58,17 +57,12 @@ def run(flag):
                 get_data(url_list_atributes, params=''),
                 get_data(url_get_list_model, params='')
             )
-        else:
-            st.write(flag)
-            st.write(option_indicators)
-            #
             option_indicators, option_model = results
             df_csv['business_date'] = pd.to_datetime(df_csv['business_date'])
             df = df_csv[(df_csv['ticker'] == option) & (df_csv['business_date'].dt.date > start_date) & (
-                        df_csv['business_date'].dt.date < end_date)]
+                    df_csv['business_date'].dt.date < end_date)]
             st.subheader('Данные из загруженного файла')
             st.dataframe(df_csv.head(5))
-        st.write(option_indicators)
         logger.debug(f"End json_to_dataframe download price: {option}")
         atr = st.sidebar.multiselect('Доступные показатели', option_indicators, default='sma')
         all_indicator_dfs = pd.DataFrame()

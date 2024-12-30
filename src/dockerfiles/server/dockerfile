@@ -14,7 +14,7 @@ COPY ../../app_server /app/app_server
 
 EXPOSE 8000
 
-ENV PYTHONPATH="${PYTHONPATH}:/app/app_server"
+ENV PYTHONPATH="${PYTHONPATH}:/app/app_server:/app/app_server/models"
 ENV LD_PRELOAD=/usr/lib/mariadb/libmariadb.so
 
 CMD ["uvicorn", "app_server.main:app", "--host", "0.0.0.0", "--port", "8000"]

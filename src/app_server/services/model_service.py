@@ -6,7 +6,7 @@ import mariadb
 from db.db_config import DB_CONFIG, APP_CONFIG
 from logging import getLogger
 from pydentic_schemas.model_schemas import Model, ModelList, InferenceAttributeValueList, InferenceAttributeValue
-
+import ntpath
 
 logger = getLogger("price_prediction_api")
 
@@ -80,20 +80,26 @@ def predict_price(model_name, ticker_name, start_date, end_date):
     return result
 
 
+def find_and_list_model_files(root_folder):
+    for dirpath, dirnames, filenames in os.walk(root_folder):
+        if "models" in dirpath and "venv" not in dirpath:
+            return [os.path.join(dirpath, file) for file in os.listdir(dirpath)]
+    return []
+
+
 def list_models():
-    directory = "models"
-    files = os.listdir(directory)
+    files = find_and_list_model_files(".")
     model_list = []
     for file in files:
-        file_path = os.path.join(directory, file)
-        model_name = os.path.splitext(file)[0]
+        file_name = ntpath.basename(file)
+        model_name = file_name.split('.')[0]
         # Get file creation time
-        creation_time = os.stat(file_path).st_ctime
+        creation_time = os.stat(file).st_ctime
         creation_date = datetime.fromtimestamp(creation_time).strftime('%Y-%m-%d %H:%M:%S')
         model_row = Model(
             model_name=model_name,
             model_description=f"Pretrained model {model_name}.",
-            file_name=file,
+            file_name=file_name,
             status="Trained",
             train_date=creation_date,
             model_class="LinearRegreassion",
@@ -151,7 +157,7 @@ def list_inference_attribute_values(attribute_name, ticker_id, date_from, date_t
                 ticker_id=ticker_id,
                 business_date=row[0],
                 value=row[1]
-                )
+            )
             attribute_values.append(value_rec)
     finally:
         connection.close()

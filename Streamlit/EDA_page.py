@@ -30,14 +30,20 @@ def run():
         max_value = today,
         format="MM.DD.YYYY",
     )
-    if d:  # если данные выбраны
+    end_date = today
+    if d:
+        # если данные выбраны
         start_date, end_date = d
+        if start_date >= end_date:
+            logger.error("Ошибка: Дата начала не может быть равной или позже даты конца.")
+        else:
+            logger.info(f"Selected date range: {start_date} - {end_date}")
         logger.info(f"Selected date range: {start_date} - {end_date}")
     if option:
         params = {"ticker_id": option, "date_from": start_date, "date_to": end_date}
         async def zap():
             logger.debug(f"Starting data fetching for ticker: {option}")
-            if 'data' not in st.session_state:
+            if 'df_csv' not in st.session_state:
                 results = await asyncio.gather(
                     get_data(url_download_prices, params),
                     get_data(url_list_atributes, params=''),
@@ -66,7 +72,7 @@ def run():
             st.sidebar.write('Выбор модели для предсказания')
             model_name = st.sidebar.selectbox('Доступные модели', df_model['model_name'])
             k = st.sidebar.date_input(
-                "Выберите период",
+                "Выберите период предсказания",
                 (last_week, next_week),
                 format="MM.DD.YYYY",
             )

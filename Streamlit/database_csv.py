@@ -17,7 +17,7 @@ def run(data):
         st.title(':blue[Команда 27. "Предсказание движения цен на фьючерсы на основе текстовых данных"]')
         st.warning('### Загруженный CSV-файл не содержит нужные столбцы. ###')
         st.write(
-            'Пожалуйста, загрузите CSV-файл со следующими названиями столбцов: "close", "business_date", "ticker"')
+            'Пожалуйста, загрузите CSV-файл со следующими названиями столбцов: "close", "business_date", "ticker", "open", "high", "low"')
         st.session_state.data = None
         return 0
 

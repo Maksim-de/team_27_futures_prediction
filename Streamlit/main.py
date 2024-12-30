@@ -69,6 +69,7 @@ def main():
 
     flag = 0
     if upload_option == 'Из базы данных':
+        st.session_state = None
         flag = 1
     elif upload_option == 'Загрузка CSV-файла':
         data = st.sidebar.file_uploader("**Загрузите CSV-файл**", type=["csv"])

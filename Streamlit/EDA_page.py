@@ -51,6 +51,7 @@ def run():
                     get_data(url_list_atributes, params=''),
                     get_data(url_get_list_model, params='')
                 )
+                #
                 option_indicators, option_model = results
                 df_csv['business_date'] = pd.to_datetime(df_csv['business_date'])
                 df = df_csv[(df_csv['ticker'] == option) & (df_csv['business_date'].dt.date > start_date) & (df_csv['business_date'].dt.date < end_date)]

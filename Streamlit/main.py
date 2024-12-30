@@ -49,6 +49,14 @@ def navigation():
         import news
         news.run()
 
+def navigation_csv():
+    st.sidebar.title('Навигация')
+    page = st.sidebar.radio('',
+                            ['Анализ данных'])
+    if page == 'Анализ данных':
+        import EDA_page
+        EDA_page.run()
+
 def main():
     # Настройка страницы
     st.set_page_config(page_title='Команда 27', page_icon='📈')
@@ -75,6 +83,8 @@ def main():
 
     if flag == 1:
         navigation()
+    elif flag == 2:
+        navigation_csv()
 
 if __name__ == "__main__":
     main()

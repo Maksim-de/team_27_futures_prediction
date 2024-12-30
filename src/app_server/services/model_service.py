@@ -17,6 +17,10 @@ def train_ml_model(model_name: str, model_description: str, file_name: str, mode
 
 
 def get_data_from_db():
+    """
+    Retrieve data from DB to use in predict_price
+    :return: pandas dataframe
+    """
     logger.info("get_data_from_db(+)")
     logger.info(f"DB_CONFIG={DB_CONFIG}")
 
@@ -53,6 +57,15 @@ def get_data_from_db():
 
 
 def predict_price(model_name, ticker_name, start_date, end_date):
+    """
+    Predict price of the financial instrument
+
+    :param model_name: model name to be used for prediction
+    :param ticker_name: ticker
+    :param start_date: start date of prediction period
+    :param end_date: end date of prediction period
+    :return: ['business_date', 'predict_value']
+    """
     data = get_data_from_db()
 
     with open(f"models/{model_name}", "rb") as f:
@@ -88,6 +101,12 @@ def find_and_list_model_files(root_folder):
 
 
 def list_models():
+    """
+    List trained models
+    :return: List(Model)
+    """
+    logger.info(f"list_models(+)")
+
     files = find_and_list_model_files(".")
     model_list = []
     for file in files:
@@ -107,10 +126,17 @@ def list_models():
         )
         model_list.append(model_row)
 
+    logger.info(f"list_models(-)")
     return model_list
 
 
 def list_inference_attributes():
+    """
+    Return a list of inference attribute names available in the database
+    :return:
+    """
+    logger.info(f"list_inference_attributes(+)")
+
     sql = """select column_name 
                  from information_schema.columns 
                  where table_name = 'feature_data' 
@@ -118,7 +144,9 @@ def list_inference_attributes():
                  order by column_name
 
     """
+    logger.info(f"DB_CONFIG={DB_CONFIG}")
     connection = mariadb.connect(**DB_CONFIG)
+    logger.info(f"Connected to DB")
     # Fetch the results
 
     try:
@@ -132,10 +160,19 @@ def list_inference_attributes():
     finally:
         connection.close()
 
+    logger.info(f"list_inference_attributes(-)")
     return attribute_list
 
 
 def list_inference_attribute_values(attribute_name, ticker_id, date_from, date_to):
+    """
+    Return a list of values of the attribute for the ticker within specified period
+    :param attribute_name:
+    :param ticker_id:
+    :param date_from:
+    :param date_to:
+    :return:
+    """
     sql = f"""select business_date, {attribute_name} 
                      from feature_data 
                      where ticker = '{ticker_id}' 

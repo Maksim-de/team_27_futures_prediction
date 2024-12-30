@@ -42,7 +42,7 @@ def run():
 
     async def zap():
         logger.debug(f"Starting data fetching for ticker: {option}")
-        if 'df_csv' not in st.session_state:
+        if st.session_state == None:
             results = await asyncio.gather(
                 get_data(url_download_prices, params),
                 get_data(url_list_atributes, params=''),

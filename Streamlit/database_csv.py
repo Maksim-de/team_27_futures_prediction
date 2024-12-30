@@ -9,7 +9,6 @@ def load_data(file):
 def run(data):
     # Дописать проверку на соответствие со столбцами
     df_csv = load_data(data)
-
     required_columns = ["close", "business_date", "ticker", "open", "high", "low", "adj_close", "volume"]
     if all(column in df_csv.columns for column in required_columns):
         st.session_state.data = df_csv  # Сохраняем данные в session_state

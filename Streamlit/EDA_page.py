@@ -10,11 +10,12 @@ from plotly.subplots import make_subplots
 import datetime
 import plotly.express as px
 from logger import setup_logger
+from main import *
 
 logger = setup_logger("EDA")
 
 
-def run():
+def run(flag):
     logger.debug("Starting application")
     st.header('Анализ данных и прогнозирование')
     tickers = ['CL=F', 'BZ=F', 'SPY', 'QQQ']
@@ -40,9 +41,10 @@ def run():
         params = {"ticker_id": option, "date_from": start_date, "date_to": end_date}
 
 
-    async def zap():
+    async def zap(flag):
+        option_indicators = 'option_indicators'
         logger.debug(f"Starting data fetching for ticker: {option}")
-        if st.session_state == None:
+        if flag == 1: # БД
             results = await asyncio.gather(
                 get_data(url_download_prices, params),
                 get_data(url_list_atributes, params=''),
@@ -50,12 +52,15 @@ def run():
             )
             result_fit, option_indicators, option_model = results
             df = json_to_dataframe(result_fit)
-        else:
+        elif flag == 2: # csv
             df_csv = st.session_state.data
             results = await asyncio.gather(
                 get_data(url_list_atributes, params=''),
                 get_data(url_get_list_model, params='')
             )
+        else:
+            st.write(flag)
+            st.write(option_indicators)
             #
             option_indicators, option_model = results
             df_csv['business_date'] = pd.to_datetime(df_csv['business_date'])
@@ -63,7 +68,7 @@ def run():
                         df_csv['business_date'].dt.date < end_date)]
             st.subheader('Данные из загруженного файла')
             st.dataframe(df_csv.head(5))
-
+        st.write(option_indicators)
         logger.debug(f"End json_to_dataframe download price: {option}")
         atr = st.sidebar.multiselect('Доступные показатели', option_indicators, default='sma')
         all_indicator_dfs = pd.DataFrame()
@@ -148,4 +153,4 @@ def run():
 
 
 
-    asyncio.run(zap())
+    asyncio.run(zap(flag))

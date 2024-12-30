@@ -40,24 +40,24 @@ Streamlit, предназначенного для анализа данных �
 import streamlit as st
 
 # Навигация
-def navigation():
+def navigation(flag):
     st.sidebar.title('Навигация')
     page = st.sidebar.radio('Выберите страницу:',
                             ['Анализ данных', 'Анализ новостей'])
     if page == 'Анализ данных':
         import EDA_page
-        EDA_page.run()
+        EDA_page.run(flag)
     elif page == 'Анализ новостей':
         import news
         news.run()
 
-def navigation_csv():
+def navigation_csv(flag):
     # st.sidebar.title('Навигация')
     page = st.sidebar.radio('',
                             ['Анализ данных'])
     if page == 'Анализ данных':
         import EDA_page
-        EDA_page.run()
+        EDA_page.run(flag)
 
 def main():
     # Настройка страницы
@@ -71,6 +71,7 @@ def main():
     if upload_option == 'Из базы данных':
         st.session_state.data = None
         flag = 1
+
     elif upload_option == 'Загрузка CSV-файла':
         data = st.sidebar.file_uploader("**Загрузите CSV-файл**", type=["csv"])
         if data is not None:
@@ -85,9 +86,9 @@ def main():
         page1.run()
 
     if flag == 1:
-        navigation()
+        navigation(flag)
     elif flag == 2:
-        navigation_csv()
+        navigation_csv(flag)
 
 if __name__ == "__main__":
     main()

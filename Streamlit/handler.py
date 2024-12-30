@@ -28,6 +28,7 @@ async def get_data(url, params = None):
                 except json.JSONDecodeError:
                     return await response.text()
             else:
+                st.write(response.status)
                 return {"error": f"Ошибка {response.status} : {await response.text()}"}
 
 def json_to_dataframe(json_data):

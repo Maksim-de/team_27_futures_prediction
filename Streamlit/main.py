@@ -50,7 +50,7 @@ def navigation():
         news.run()
 
 def navigation_csv():
-    st.sidebar.title('Навигация')
+    # st.sidebar.title('Навигация')
     page = st.sidebar.radio('',
                             ['Анализ данных'])
     if page == 'Анализ данных':

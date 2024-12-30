@@ -1,6 +1,7 @@
 import streamlit as st
 
 def run():
+    st.title(':blue[Команда 27. "Предсказание движения цен на фьючерсы на основе текстовых данных"]')
     st.header('Описание проекта')
     st.write(
         '''
@@ -14,7 +15,7 @@ def run():
     st.button('[Данные берем тут](https://docs.webz.io/reference/output)')
     st.write(
         '''
-        _news_provider_ - Откуда берем данные (сайт).\n
+        _news_provider_ - Провайдер новостей.\n
         _site_ - Домен верхнего уровня сайта.\n
         _titel_ - Название темы.\n
         _published-timestamp_ - Дата / время публикации темы.\n

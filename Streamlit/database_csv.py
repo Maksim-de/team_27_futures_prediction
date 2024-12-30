@@ -1,15 +1,23 @@
-from database import *
+import streamlit as st
+import pandas as pd
 
 # Кэшируем данные
 @st.cache_data
 def load_data(file):
-    return pd.read_csv(file)
+    return pd.read_csv(file, sep=';')
 
 def run(data):
-    st.title(':blue[Команда 27. "Предсказание движения цен на фьючерсы на основе текстовых данных"]')
     # Дописать проверку на соответствие со столбцами
-    st.header('Загруженный CSV-файл')
     df_csv = load_data(data)
-    st.session_state.data = df_csv  # Сохраняем данные в session_state
+    required_columns = ["close", "business_date", "ticker"]
+    if all(column in df_csv.columns for column in required_columns):
+        st.session_state.data = df_csv  # Сохраняем данные в session_state
+        return 1
+    else:
+        st.title(':blue[Команда 27. "Предсказание движения цен на фьючерсы на основе текстовых данных"]')
+        st.warning('### Загруженный CSV-файл не содержит нужные столбцы. ###')
+        st.write(
+            'Пожалуйста, загрузите CSV-файл со следующими названиями столбцов: "close", "business_date", "ticker"')
+        st.session_state.data = None
+        return 0
 
-    print_data(df_csv) # Функция из database

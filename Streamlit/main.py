@@ -39,11 +39,8 @@ import streamlit as st
 def navigation():
     st.sidebar.title('Навигация')
     page = st.sidebar.radio('Выберите страницу:',
-                            ['Описание', 'EDA + предикт', 'Новости'], index=None)
-    if page == 'Описание':
-        import page1
-        page1.run()
-    elif page == 'EDA + предикт':
+                            ['Анализ данных', 'Новости'])
+    if page == 'Анализ данных':
         import EDA_page
         EDA_page.run()
     elif page == 'Новости':
@@ -60,21 +57,19 @@ def main():
 
     flag = 0
     if upload_option == 'Из базы данных':
-        import database
-        database.run()
         flag = 1
     elif upload_option == 'Загрузка CSV-файла':
         data = st.sidebar.file_uploader("**Загрузите CSV-файл**", type=["csv"])
         if data is not None:
             import database_csv
-            database_csv.run(data)
-            flag = 1
+            flag = database_csv.run(data)
         else:
             st.title(':blue[Команда 27. "Предсказание движения цен на фьючерсы на основе текстовых данных"]')
             st.warning('### Загрузите CSV-файл в левом окошке ###')
+            st.write('Ваш CSV-файл должен содержать хотя бы 3 столбика со следующими названиями: "close", "business_date", "ticker"')
     else:
-        st.title(':blue[Команда 27. "Предсказание движения цен на фьючерсы на основе текстовых данных"]')
-        st.warning('### Выберите слева способ загрузки датасета ###')
+        import page1
+        page1.run()
 
     if flag == 1:
         navigation()

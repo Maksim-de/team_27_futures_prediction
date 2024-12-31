@@ -119,3 +119,51 @@ async def list_inference_attributes_handler(attribute_name: str, ticker_id: str,
     logger.info("list_inference_attributes(-)")
 
     return response
+
+
+@router.post("/train_new_model",
+             status_code=status.HTTP_200_OK,
+             summary="Train new model using uploaded DataFrame")
+async def train_new_model_handler(
+        model_name: str,
+        shift_days: int = 20,
+        test_len: int = 50,
+        ticker_name=None,
+):
+    """
+    Creates new model and provides fit procedure
+    :param model_name: model's name after saving
+    :param shift_days: value needed to control forecasting horizon
+    :param test_len: value to control  blinded period for mertics evaluetion
+    :param ticker_name:  data filter for significant and ony one ticker entity
+    """
+    logger.info("train_new_model_handler (+)")
+
+    # Берём глобальный DF, объявлен в data_router.py
+    from api.v1.data_router import UPLOADED_DF_NEW
+    if UPLOADED_DF_NEW is None:
+        logger.error("No DF uploaded!")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No DataFrame uploaded yet. Call /upload_cleaned_df first."
+        )
+
+    df = UPLOADED_DF_NEW.loc[UPLOADED_DF_NEW.ticker==ticker_name]
+    from services.model_service import train_new_model_logic
+    try:
+        result = train_new_model_logic(
+            df=df,
+            model_name=model_name,
+            shift_days=shift_days,
+            test_len=test_len,
+            ticker_name=ticker_name
+        )
+    except Exception as e:
+        logger.error(f"Error in train_new_model_handler: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"{e}"
+        )
+    logger.info("train_new_model_handler (-)")
+
+    return result

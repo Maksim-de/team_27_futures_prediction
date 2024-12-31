@@ -3,11 +3,16 @@ from fastapi import APIRouter, HTTPException, status
 from pydentic_schemas.data_schemas import TickerPriceRequestList, NewsLoadRequestList
 from pydentic_schemas.data_schemas import LoadStatusRequestList, MessageResponseList, PriceTableResponse
 from pydentic_schemas.data_schemas import NewsSentimentRequestList, NewsSentimentResponse, DataStatusResponseList
+from pydantic import BaseModel
+from pydentic_schemas.data_schemas import DataBase64
 from services.data_service import download_prices, download_news, check_download_status, get_id_dates, get_price_table
 from services.data_service import get_news_sentiment_table, get_data_status
 from services.data_service import run_price_inference, run_sentiment_inference
 from logging import getLogger
 from datetime import date
+import base64
+import io
+import pandas as pd
 
 
 router = APIRouter()
@@ -229,3 +234,28 @@ async def cleanup_data_handler():
     :return: {"message": str}
     """
     return {"message": "Data cleanup completed"}
+
+
+# Глобальная переменная, нужна для хранения загруженного фрейма
+UPLOADED_DF_NEW = None
+
+
+@router.post("/upload_cleaned_df")
+async def upload_cleaned_df_handler(payload: DataBase64):
+    logger.info("upload_cleaned_df_handler (+)")
+    global UPLOADED_DF_NEW
+    try:
+        csv_bytes = base64.b64decode(payload.data_base64)
+        df = pd.read_csv(io.BytesIO(csv_bytes))
+        UPLOADED_DF_NEW = df
+
+        logger.info(f"DataFrame uploaded. Rows={len(df)}, Cols={len(df.columns)}")
+        logger.info("upload_cleaned_df_handler (-)")
+        return {"status": "ok", "rows": len(df), "cols": len(df.columns)}
+
+    except Exception as e:
+        logger.error(f"Failed to upload cleaned DF: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Error: {e}"
+        )

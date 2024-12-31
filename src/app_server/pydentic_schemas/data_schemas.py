@@ -179,3 +179,8 @@ LoadStatusRequestList = List[LoadStatusRequest]
 MessageResponseList = List[MessageResponse]
 DataStatusResponseList = List[DataStatusResponse]
 NewsSentimentResponseList = List[NewsSentimentResponseRow]
+
+# create simple str for transformation before data uploading
+# it's okay, we don't have to large datasets because of aggregation data nature
+class DataBase64(BaseModel):
+    data_base64: str

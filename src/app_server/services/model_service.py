@@ -7,6 +7,10 @@ from db.db_config import DB_CONFIG, APP_CONFIG
 from logging import getLogger
 from pydentic_schemas.model_schemas import Model, ModelList, InferenceAttributeValueList, InferenceAttributeValue
 import ntpath
+import numpy as np
+from sklearn.linear_model import Ridge
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 
 logger = getLogger("price_prediction_api")
 
@@ -42,12 +46,10 @@ def get_data_from_db():
         all_combinations = pd.MultiIndex.from_product([tickers, all_dates], names=['ticker', 'business_date']).to_frame(
             index=False)
         sentiment["business_date"] = pd.to_datetime(sentiment["business_date"])
-        all_combinations = all_combinations.merge(sentiment, 'left', ['business_date', 'ticker']).merge(features,
-                                                                                                        'left',
-                                                                                                        [
-                                                                                                            'business_date',
-                                                                                                            'ticker',
-                                                                                                            'asset_name'])
+        all_combinations = (all_combinations.
+                merge(sentiment, 'left', ['business_date', 'ticker']).
+                merge(features, 'left',['business_date','ticker','asset_name'])
+        )
         all_combinations['weekday'] = pd.to_datetime(all_combinations.business_date).dt.weekday
         all_combinations['month'] = pd.to_datetime(all_combinations.business_date).dt.month
     finally:
@@ -56,7 +58,7 @@ def get_data_from_db():
     return all_combinations
 
 
-def predict_price(model_name, ticker_name, start_date, end_date):
+def predict_price(model_name, ticker_name, start_date, end_date, data_source="db"):
     """
     Predict price of the financial instrument
 
@@ -66,29 +68,39 @@ def predict_price(model_name, ticker_name, start_date, end_date):
     :param end_date: end date of prediction period
     :return: ['business_date', 'predict_value']
     """
-    data = get_data_from_db()
+    file_path = f"models/{model_name}.pkl"
 
-    with open(f"models/{model_name}", "rb") as f:
+    with open(file_path, "rb") as f:
         bundle = pickle.load(f)
 
-    # распаковываем бандл
     BZ_F_model = bundle["model"]
     BZ_F_scaler = bundle["scaler"]
-    BZ_F_chosen_features = bundle["chosen_features"]
     BZ_F_shifted_days = bundle["shifted_days"]
+    BZ_F_chosen_features = bundle.get("chosen_features", [])
 
-    # берем фрейм, в котором только нужный для конкретной модели тикер
-    ticker_data = data.loc[data.ticker == ticker_name].ffill()
+    if data_source == "db":
+        data = get_data_from_db()
+        ticker_data = data.loc[data.ticker == ticker_name].ffill()
 
-    # скейлер обучался на отобранных фичах, поэтому применяем трансформ к тоже уже отобранным
+    elif data_source == "uploaded_file":
+        from api.v1.data_router import UPLOADED_DF_NEW
+        if UPLOADED_DF_NEW is None:
+            raise ValueError(
+                "UPLOADED_DF_NEW is None. Нажмите 'Загрузить очищенный DataFrame' на page2, прежде чем делать предикт из памяти.")
+        data = UPLOADED_DF_NEW
+        ticker_data = data.loc[data.ticker == ticker_name].ffill()
+    else:
+        raise ValueError(f"Неизвестный data_source: {data_source}")
+
+    # Дальше логика предикта
+
     data_for_model = BZ_F_scaler.transform(ticker_data[BZ_F_chosen_features])
-
-    # так как модель обучалась со сдвигом, этот сдвиг надо вернуть в дату
     dates_predict = (ticker_data.business_date + timedelta(days=BZ_F_shifted_days)).tolist()
-    predict = BZ_F_model.predict(data_for_model)
+    predict_values = BZ_F_model.predict(data_for_model)
 
-    result = pd.DataFrame([dates_predict, predict]).T
-    result.columns = ['business_date', 'predict_value']
+    result = pd.DataFrame({"business_date": dates_predict, "predict_value": predict_values})
+    result = (result.loc[result.business_date.astype(str)>=str(start_date)]
+                    .loc[result.business_date.astype(str)<=str(end_date)])
 
     return result
 
@@ -200,3 +212,94 @@ def list_inference_attribute_values(attribute_name, ticker_id, date_from, date_t
         connection.close()
 
     return attribute_values
+
+
+def train_new_model_logic(df, model_name, shift_days, test_len, ticker_name=None):
+    """
+    :param df: uploaded frame
+    :param model_name: name after saving
+    :param shift_days: value needed to control forecasting horizon
+    :param test_len: value to control  blinded period for mertics evaluetion
+    :param ticker_name: data filter for significant and ony one ticker entity
+    """
+    logger.info("train_new_model_logic (+)")
+
+    # заполняем пропуски если они все-таки просочились
+    if ticker_name is not None:
+        df = df.loc[df.ticker==ticker_name].sort_values('business_date').ffill()
+    else:
+        df = df.sort_values('business_date').ffill()
+
+    # делаем смещение и удаляем целевую переменную
+    # close тоже удаляем, чтобы не было привязки к последнему известному значению
+
+    df['next_day_close'] = df['close'].shift(-shift_days).ffill()
+    df = df.iloc[:-shift_days]
+    y = df['next_day_close']
+    df.drop(['close','next_day_close'],axis=1, inplace=True)
+
+    # проверим что данных достаточно
+    X = df.select_dtypes(include=[np.number]).copy()
+    if len(X) <= test_len:
+        raise Exception("Not enough data for the given test_len")
+
+    # сначала обучим на трейне, замерим метрики и обучим на полном датасете
+    X_train = X.iloc[:-test_len]
+    y_train = y.iloc[:-test_len]
+    X_test = X.iloc[-test_len:]
+    y_test = y.iloc[-test_len:]
+
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+    model = Ridge()
+    model.fit(X_train_scaled, y_train)
+
+    y_train_pred = model.predict(X_train_scaled)
+    y_test_pred = model.predict(X_test_scaled)
+
+    train_mse = mean_squared_error(y_train, y_train_pred)
+    test_mse = mean_squared_error(y_test, y_test_pred)
+    train_mape = mean_absolute_percentage_error(y_train, y_train_pred)
+    test_mape = mean_absolute_percentage_error(y_test, y_test_pred)
+
+
+    # теперь на полном датасете
+    X_train_scaled = scaler.fit_transform(X)
+    model = Ridge()
+    model.fit(X_train_scaled, y)
+
+    # Сохраняем модель в словарь
+    bundle = {
+        "model": model,
+        "scaler": scaler,
+        "shifted_days": shift_days,
+        # Если в predict_price вы ожидаете "chosen_features",
+        # можно добавить:
+        "chosen_features": list(X_train.columns)
+    }
+
+    # Сохраняем в models/{model_name}.pkl через pickle
+    if not os.path.exists("models"):
+        os.makedirs("models")
+    file_name = f"{model_name}.pkl"
+    file_path = os.path.join("models", file_name)
+
+    with open(file_path, "wb") as f:
+        pickle.dump(bundle, f)
+
+    logger.info(f"Model {model_name} saved to {file_path}")
+
+    result = {
+        "model_name": model_name,
+        "shift_days": shift_days,
+        "test_len": test_len,
+        "train_mse": train_mse,
+        "test_mse": test_mse,
+        "train_mape": train_mape,
+        "test_mape": test_mape
+    }
+
+    logger.info("train_new_model_logic (-)")
+    return result

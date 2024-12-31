@@ -11,6 +11,7 @@ import datetime
 import plotly.express as px
 from logger import setup_logger
 from main import *
+import base64
 
 logger = setup_logger("EDA")
 
@@ -18,13 +19,13 @@ logger = setup_logger("EDA")
 def run(flag):
     logger.debug("Starting application")
     st.header('Анализ данных и прогнозирование')
-    tickers = ['CL=F', 'BZ=F', 'SPY', 'QQQ']
+    tickers = ['BZ=F','CL=F', 'SPY', 'QQQ']
     option = st.sidebar.selectbox('Выберите тикер', tickers)
     today = datetime.datetime.now()
     last_year = today.year - 1
     last_date = datetime.date(last_year, 1, 1)
-    next_week = today + datetime.timedelta(days=7)
-    last_week = today - datetime.timedelta(days=7)
+    period_end = today + datetime.timedelta(days=7)
+    period_start = today - datetime.timedelta(days=60)
 
     d = st.sidebar.date_input(
         "Выберите период",
@@ -66,18 +67,19 @@ def run(flag):
         logger.debug(f"End json_to_dataframe download price: {option}")
         atr = st.sidebar.multiselect('Доступные показатели', option_indicators, default='sma')
         all_indicator_dfs = pd.DataFrame()
-        df_model = json_to_dataframe(option_model)
+        df_model = json_to_dataframe(option_model).dropna(subset=['model_name'])
         logger.debug(f"End json_to_dataframe option model: {option}")
         st.sidebar.write('Выбор модели для предсказания')
-        model_name = st.sidebar.selectbox('Доступные модели', df_model['model_name'])
+        st.session_state['available_models'] = [x for x in df_model['model_name'] if x is not None and x !='']
+        model_name = st.sidebar.selectbox('Доступные модели', st.session_state['available_models'], key='updated_model_selectbox')
         k = st.sidebar.date_input(
             "Выберите период предсказания",
-            (last_week, next_week),
+            (period_start, period_end),
             format="MM.DD.YYYY",
         )
         if k:  # если данные выбраны
             start_date_n, end_date_n = k
-        name_model = f'{model_name}.pkl'
+        name_model = f'{model_name}'
         params_model = {"model_name": name_model, "item_id": option, "start_date": start_date_n, "end_date": end_date_n}
         logger.debug(f"Start predict: {name_model}")
         prediction = await get_data(url=url_predict_price, params=params_model)
@@ -144,7 +146,59 @@ def run(flag):
         with st.expander("Описательная статистика", expanded=False):
             st.dataframe(df.describe().T, width=800)
         logger.debug("End application")
-
-
-
     asyncio.run(zap(flag))
+
+
+    # обучение происходит на бэке, мы отправляем модель прямиком туда
+    async def post_data(url, payload):
+        import aiohttp
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=payload) as resp:
+                if resp.status == 200:
+                    try:
+                        return await resp.json()
+                    except:
+                        return {"error": f"JSON parse error: {await resp.text()}"}
+                else:
+                    return {"error": f"Status {resp.status}: {await resp.text()}"}
+
+    if flag == 2:
+        csv_bytes = st.session_state.data.to_csv(index=False).encode("utf-8")
+        encoded_data = base64.b64encode(csv_bytes).decode("utf-8")
+        upload_url = "http://127.0.0.1:8000/api/v1/data/upload_cleaned_df"
+        payload = {"data_base64": encoded_data}
+        response = asyncio.run(post_data(upload_url, payload))
+        # st.write("Ответ сервера:", response)
+
+        # Блок обучения новой модели
+        st.subheader("Обучение новой модели")
+        model_name = st.text_input("Название модели", value="my_new_model")
+        shift_days = st.number_input("Сдвиг (shift_days)", min_value=1, value=20)
+        test_len = st.number_input("Размер тестовой выборки", min_value=1, value=50)
+        ticker_name = st.text_input("Тикер для фильтрации", value="BZ=F")
+
+        async def post_request(url, json_payload=None):
+            import aiohttp
+            json_payload = json_payload or {}
+            async with aiohttp.ClientSession() as session:
+                async with session.post(url, json=json_payload) as resp:
+                    if resp.status == 200:
+                        try:
+                            return await resp.json()
+                        except Exception:
+                            return {"error": "JSON parse error", "raw": await resp.text()}
+                    return {"error": f"Status {resp.status}", "detail": await resp.text()}
+
+
+        if st.button("Обучить модель"):
+            train_url = "http://127.0.0.1:8000/api/v1/model/train_new_model"
+            final_url = f"{train_url}?model_name={model_name}&shift_days={shift_days}&test_len={test_len}&ticker_name={ticker_name}"
+            result = asyncio.run(post_request(final_url))
+            st.write(f"Модель успешно обучена:")
+            st.write(pd.DataFrame([result]))
+
+        if st.button("Обновить список моделей"):
+            url_list = "http://127.0.0.1:8000/api/v1/model/list_models"
+            model_list_data = asyncio.run(get_data(url_list))
+            df_model = pd.DataFrame(model_list_data).dropna(subset=['model_name'])
+            st.session_state['available_models'] = [x for x in df_model['model_name'] if x is not None and x !='']

@@ -15,20 +15,23 @@ url_get_inference_attribute_values = API_URL + '/model/get_inference_attribute_v
 url_get_list_model = API_URL + '/model/list_models'
 url_predict_price = API_URL + '/model/predict_price'
 
-async def get_data(url, params = None):
+async def get_data(url, params=None):
     async with aiohttp.ClientSession() as session:
-        if (params is not None) or params!= '':
-            full_url = f"{url}?{urlencode(params)}"  # Добавляем параметры к URL
+        # Проверяем, что params - это словарь (или None)
+        if params and isinstance(params, dict):
+            full_url = f"{url}?{urlencode(params)}"
         else:
+            # Если params нет или он не словарь, просто не добавляем query
             full_url = url
+
         async with session.get(full_url) as response:
             if response.status == 200:
                 try:
                     return await response.json()
-                except json.JSONDecodeError:
+                except:
+                    # может быть текст
                     return await response.text()
             else:
-                st.write(response.status)
                 return {"error": f"Ошибка {response.status} : {await response.text()}"}
 
 def json_to_dataframe(json_data):
@@ -41,6 +44,7 @@ def json_to_dataframe(json_data):
     Returns:
         Pandas DataFrame или None при ошибке.
     """
+
     try:
         if isinstance(json_data, str):
             data = json.loads(json_data)

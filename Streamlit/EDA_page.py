@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import streamlit as st
 import handler
 import aiohttp
@@ -192,10 +193,21 @@ def run(flag):
 
         if st.button("Обучить модель"):
             train_url = "http://127.0.0.1:8000/api/v1/model/train_new_model"
-            final_url = f"{train_url}?model_name={model_name}&shift_days={shift_days}&test_len={test_len}&ticker_name={ticker_name}"
-            result = asyncio.run(post_request(final_url))
+            payload = {
+                "model_name": model_name,
+                "shift_days": shift_days,
+                "test_len": test_len,
+                "ticker_name": ticker_name
+            }
+            result = asyncio.run(post_request(train_url,payload))
             st.write(f"Модель успешно обучена:")
-            st.write(pd.DataFrame([result]))
+            st.write(pd.DataFrame([result["model_stat"]]))
+            plot_actual_vs_predicted(*result["train_test_result"].values())
+
+            residual_train = (np.array(result["train_test_result"]["y_train"]) - np.array(result["train_test_result"]["y_train_pred"])).tolist()
+            residual_test =  (np.array(result["train_test_result"]["y_test"]) - np.array(result["train_test_result"]["y_test_pred"])).tolist()
+            plot_residual_analysis(residual_train, residual_test)
+
 
         if st.button("Обновить список моделей"):
             url_list = "http://127.0.0.1:8000/api/v1/model/list_models"

@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
+from scipy import stats
 import aiohttp
 import asyncio
 import json
@@ -155,3 +157,154 @@ def plot_data(df, indicators_df=None, predicted_df=None):
     if fig:
         with main_chart_container:  # Выводим основной график в контейнере
             st.plotly_chart(fig)
+
+def plot_actual_vs_predicted(
+        dates_train,
+        y_train,
+        y_train_pred,
+        dates_test,
+        y_test,
+        y_test_pred,
+        ticker_name
+):
+    """
+    Выводим линии факта и прогноз полученные после обучения новой модели
+    """
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=dates_train, y=y_train,
+        mode='lines', line=dict(color='blue', dash='dot'),
+        name='Actual train change'
+    ))
+    fig.add_trace(go.Scatter(
+        x=dates_train, y=y_train_pred,
+        mode='lines', line=dict(color='blue'),
+        name='Predicted train change'
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=dates_test, y=y_test,
+        mode='lines', line=dict(color='orange', dash='dot'),
+        name='Actual test change'
+    ))
+    fig.add_trace(go.Scatter(
+        x=dates_test, y=y_test_pred,
+        mode='lines', line=dict(color='orange'),
+        name='Predicted test change'
+    ))
+
+    fig.update_layout(
+        title=f"Actual vs Predicted Values for {ticker_name}",
+        xaxis=dict(
+            title="Date",
+            showgrid=True,
+            gridcolor='lightgray',
+            tickformat='%Y-%m-%d',
+            dtick="M7",
+            tickangle=45,
+            tickmode="auto"
+        ),
+        yaxis=dict(
+            title="Price Change",
+            showgrid=True,
+            gridcolor='lightgray'
+        ),
+        # legend=dict(
+        #     title="Legend",
+        #     orientation="h",
+        #     yanchor="bottom",
+        #     y=1.02,
+        #     xanchor="right",
+        #     x=1
+        # ),
+        template="plotly_white",
+        margin=dict(l=40, r=40, t=60, b=40)
+    )
+
+    st.plotly_chart(fig)
+
+def plot_residual_analysis(residual_train, residual_test):
+    """
+    Отображает распределения остатков и Q-Q графики для тренировочных и тестовых данных.
+    """
+
+    # Подготовка данных для распределения остатков (гистограммы с KDE)
+    hist_data_train = [residual_train]
+    hist_data_test = [residual_test]
+    group_labels_train = ['Train Residuals']
+    group_labels_test = ['Test Residuals']
+
+    # Создание гистограммы с KDE для тренировочных остатков
+    fig = make_subplots(
+        rows=2, cols=2,
+        subplot_titles=(
+            "Train Residuals Distribution",
+            "Train Residuals Q-Q Plot",
+            "Test Residuals Distribution",
+            "Test Residuals Q-Q Plot"
+        ),
+        horizontal_spacing=0.15,
+        vertical_spacing=0.15,
+    )
+
+    # Гистограмма для тренировочных остатков
+    hist_train, bin_edges_train = np.histogram(residual_train, bins=30, density=True)
+    kde_train = stats.gaussian_kde(residual_train)
+    x_train_kde = np.linspace(min(residual_train), max(residual_train), 100)
+    y_train_kde = kde_train(x_train_kde)
+    fig.add_trace(
+        go.Bar(x=bin_edges_train[:-1], y=hist_train, name='Train Residuals', marker_color='blue'),
+        row=1, col=1
+    )
+    fig.add_trace(
+        go.Scatter(x=x_train_kde, y=y_train_kde, mode='lines', name='Train KDE', line=dict(color='blue')),
+        row=1, col=1
+    )
+
+    # Q-Q Plot для тренировочных остатков
+    qq_train = stats.probplot(residual_train, dist="norm")
+    fig.add_trace(
+        go.Scatter(x=qq_train[0][0], y=qq_train[0][1], mode='markers', name='Train Q-Q', marker_color='blue'),
+        row=1, col=2
+    )
+    fig.add_trace(
+        go.Scatter(x=qq_train[0][0], y=qq_train[0][0], mode='lines', name='Ideal Line', line=dict(color='red')),
+        row=1, col=2
+    )
+
+    # Гистограмма для тестовых остатков
+    hist_test, bin_edges_test = np.histogram(residual_test, bins=30, density=True)
+    kde_test = stats.gaussian_kde(residual_test)
+    x_test_kde = np.linspace(min(residual_test), max(residual_test), 100)
+    y_test_kde = kde_test(x_test_kde)
+    fig.add_trace(
+        go.Bar(x=bin_edges_test[:-1], y=hist_test, name='Test Residuals', marker_color='orange'),
+        row=2, col=1
+    )
+    fig.add_trace(
+        go.Scatter(x=x_test_kde, y=y_test_kde, mode='lines', name='Test KDE', line=dict(color='orange')),
+        row=2, col=1
+    )
+
+    # Q-Q Plot для тестовых остатков
+    qq_test = stats.probplot(residual_test, dist="norm")
+    fig.add_trace(
+        go.Scatter(x=qq_test[0][0], y=qq_test[0][1], mode='markers', name='Test Q-Q', marker_color='orange'),
+        row=2, col=2
+    )
+    fig.add_trace(
+        go.Scatter(x=qq_test[0][0], y=qq_test[0][0], mode='lines', name='Ideal Line', line=dict(color='red')),
+        row=2, col=2
+    )
+
+    # Настройка оформления
+    fig.update_layout(
+        title_text="Residual Analysis",
+        showlegend=False,
+        height=800,
+        width=1000,
+        template="plotly_white"
+    )
+
+    st.plotly_chart(fig)

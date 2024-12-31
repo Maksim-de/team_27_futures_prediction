@@ -236,7 +236,11 @@ def train_new_model_logic(df, model_name, shift_days, test_len, ticker_name=None
     df['next_day_close'] = df['close'].shift(-shift_days).ffill()
     df = df.iloc[:-shift_days]
     y = df['next_day_close']
-    df.drop(['close','next_day_close'],axis=1, inplace=True)
+
+    # удаляем явное обозначение цены чтобы не было застревания на этих признаках
+    df.drop(['close','next_day_close','open', 'high', 'low', 'adj_close'],axis=1, inplace=True)
+
+    logger.debug(f"Result frame columns: {df.columns}")
 
     # проверим что данных достаточно
     X = df.select_dtypes(include=[np.number]).copy()
@@ -244,14 +248,18 @@ def train_new_model_logic(df, model_name, shift_days, test_len, ticker_name=None
         raise Exception("Not enough data for the given test_len")
 
     # сначала обучим на трейне, замерим метрики и обучим на полном датасете
+    dates_train = df.iloc[:-(test_len)].business_date
+    dates_test = df.iloc[-test_len:].business_date
     X_train = X.iloc[:-test_len]
     y_train = y.iloc[:-test_len]
     X_test = X.iloc[-test_len:]
     y_test = y.iloc[-test_len:]
 
+    logger.info("scaler apply")
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
+
 
     model = Ridge()
     model.fit(X_train_scaled, y_train)
@@ -291,15 +299,26 @@ def train_new_model_logic(df, model_name, shift_days, test_len, ticker_name=None
 
     logger.info(f"Model {model_name} saved to {file_path}")
 
-    result = {
+    train_test_result = {
+        "dates_train": dates_train.tolist(),
+        "y_train": y_train.tolist(),
+        "y_train_pred": y_train_pred.tolist(),
+        "dates_test": dates_test.tolist(),
+        "y_test": y_test.tolist(),
+        "y_test_pred": y_test_pred.tolist(),
+        "ticker_name": ticker_name,
+    }
+
+    model_stat = {
         "model_name": model_name,
         "shift_days": shift_days,
         "test_len": test_len,
         "train_mse": train_mse,
         "test_mse": test_mse,
         "train_mape": train_mape,
-        "test_mape": test_mape
+        "test_mape": test_mape,
     }
 
+    result = {"train_test_result":train_test_result,"model_stat":model_stat}
     logger.info("train_new_model_logic (-)")
     return result

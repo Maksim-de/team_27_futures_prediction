@@ -2,9 +2,9 @@ from fastapi import APIRouter, HTTPException, status
 #ensure the PYTHONPATH includes app_server.
 from pydentic_schemas.data_schemas import MessageResponseList
 from pydentic_schemas.model_schemas import ModelList, PredictionRequestList, PredicitonResponse, PredictionResponseList
-from pydentic_schemas.model_schemas import InferenceAttributeValueList
+from pydentic_schemas.model_schemas import InferenceAttributeValueList,TrainModelResponse,TrainNewModelRequest
 from services.model_service import train_ml_model, predict_price, list_models, list_inference_attributes
-from services.model_service import list_inference_attribute_values
+from services.model_service import list_inference_attribute_values, train_new_model_logic
 from datetime import date
 from typing import List
 from logging import getLogger
@@ -121,15 +121,14 @@ async def list_inference_attributes_handler(attribute_name: str, ticker_id: str,
     return response
 
 
-@router.post("/train_new_model",
-             status_code=status.HTTP_200_OK,
-             summary="Train new model using uploaded DataFrame")
-async def train_new_model_handler(
-        model_name: str,
-        shift_days: int = 20,
-        test_len: int = 50,
-        ticker_name=None,
-):
+
+@router.post(
+    "/train_new_model",
+    status_code=status.HTTP_200_OK,
+    summary="Train new model using uploaded DataFrame",
+    response_model=TrainModelResponse
+)
+async def train_new_model_handler(request: TrainNewModelRequest):
     """
     Creates new model and provides fit procedure
     :param model_name: model's name after saving
@@ -137,9 +136,10 @@ async def train_new_model_handler(
     :param test_len: value to control  blinded period for mertics evaluetion
     :param ticker_name:  data filter for significant and ony one ticker entity
     """
+
     logger.info("train_new_model_handler (+)")
 
-    # Берём глобальный DF, объявлен в data_router.py
+    # Проверка наличия загруженного DataFrame
     from api.v1.data_router import UPLOADED_DF_NEW
     if UPLOADED_DF_NEW is None:
         logger.error("No DF uploaded!")
@@ -148,22 +148,29 @@ async def train_new_model_handler(
             detail="No DataFrame uploaded yet. Call /upload_cleaned_df first."
         )
 
-    df = UPLOADED_DF_NEW.loc[UPLOADED_DF_NEW.ticker==ticker_name]
-    from services.model_service import train_new_model_logic
+    # Фильтрация DataFrame по тикеру, если указан
+    df = UPLOADED_DF_NEW
+    if request.ticker_name:
+        df = df.loc[df.ticker == request.ticker_name]
+
     try:
         result = train_new_model_logic(
             df=df,
-            model_name=model_name,
-            shift_days=shift_days,
-            test_len=test_len,
-            ticker_name=ticker_name
+            model_name=request.model_name,
+            shift_days=request.shift_days,
+            test_len=request.test_len,
+            ticker_name=request.ticker_name
         )
     except Exception as e:
         logger.error(f"Error in train_new_model_handler: {e}")
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=f"{e}"
+            detail=str(e)
         )
+
     logger.info("train_new_model_handler (-)")
 
-    return result
+    return TrainModelResponse(
+        train_test_result=result["train_test_result"],
+        model_stat=result["model_stat"]
+    )

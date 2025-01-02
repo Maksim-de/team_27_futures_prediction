@@ -19,5 +19,7 @@ __pycache__/
 .vscode/
 
 # Logs and temporary files
-*.log
 *.tmp
+
+# .env file with secret information
+.env

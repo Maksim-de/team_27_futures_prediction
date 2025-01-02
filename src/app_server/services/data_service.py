@@ -45,22 +45,26 @@ def check_download_status(item_id: str):
 
 
 def get_price_table(ticker_id: str, date_from: Optional[date], date_to: Optional[date]):
-    data = [
+    logger.info(f"get_price_table(+)")
+    """data = [
         {"ticker_id": "BZ=F", "business_date": "2024-12-01", "open": 123, "close": 123, "high": 123, "low": 123},
         {"ticker_id": "BZ=F", "business_date": "2024-12-02", "open": 124, "close": 124, "high": 124, "low": 124}
-    ]
+    ]"""
     sql = f"""SELECT *
                    FROM market_data
                    where ticker = '{ticker_id}'
                      and business_date between '{date_from}' and '{date_to}'        
                        ORDER BY business_date"""
     connection = mariadb.connect(**DB_CONFIG)
+    logger.info(f"connected to database")
     # Fetch the results
 
     try:
         cursor = connection.cursor()
         cursor.execute(sql)
         rowset = cursor.fetchall()
+        logger.info(f"sql query executed")
+        #
         data_list = []
 
         for row in rowset:
@@ -80,10 +84,12 @@ def get_price_table(ticker_id: str, date_from: Optional[date], date_to: Optional
     finally:
         connection.close()
 
+    logger.info(f"get_price_table(-)")
     return PriceTableResponse(data=data_list)
 
 
 def get_news_sentiment_table(ticker_id: str, date_from: Optional[date], date_to: Optional[date]):
+    logger.info(f"get_news_sentiment_table(+)")
 
     sql = f"""SELECT *
                FROM daily_finbert_sentiment
@@ -140,10 +146,13 @@ def get_news_sentiment_table(ticker_id: str, date_from: Optional[date], date_to:
     finally:
         connection.close()
 
+    logger.info(f"get_news_sentiment_table(-)")
+
     return NewsSentimentResponse(data=data_list)
 
 
 def get_data_status():
+    logger.info(f"get_data_status(+)")
     """data = [{"item_id": "BZ-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"},
             {"item_id": "CL-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"},
             {"item_id": "NEWS_BZ-F", "min_available_date": "2024-12-01", "max_available_date": "2024-12-31"},
@@ -161,12 +170,14 @@ def get_data_status():
                FROM news_data       
                ORDER BY ticker"""
     connection = mariadb.connect(**DB_CONFIG)
-    # Fetch the results
+    logger.info(f"connected to DB")
 
     try:
         cursor = connection.cursor()
         cursor.execute(sql)
         rowset = cursor.fetchall()
+        logger.info(f"Executed DB query")
+
         data_list = []
 
         for row in rowset:
@@ -179,6 +190,7 @@ def get_data_status():
     finally:
         connection.close()
 
+    logger.info(f"get_data_status(-)")
     return data_list
 
 

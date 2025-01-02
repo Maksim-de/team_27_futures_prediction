@@ -1,5 +1,7 @@
 import logging
 from logging.handlers import TimedRotatingFileHandler
+import os
+
 
 def setup_logging():
     """
@@ -11,6 +13,8 @@ def setup_logging():
     logger.setLevel(logging.INFO)
 
     # Create a handler that writes log messages to a file and rotates daily
+    if not os.path.exists("logs"):
+        os.makedirs("logs")
     handler = TimedRotatingFileHandler(
         "logs/price_prediction_api.log", when="D", interval=1, backupCount=5
     )
@@ -21,7 +25,7 @@ def setup_logging():
     # Add handler to the logger
     logger.addHandler(handler)
 
-    # Optionally log to console
+    # Add logging to console
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

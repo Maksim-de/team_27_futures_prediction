@@ -84,7 +84,52 @@ class InferenceAttributeValue(BaseModel):
             }
         }
 
+class TrainNewModelRequest(BaseModel):
+    model_name: str = Field(..., title="Название модели для сохранения")
+    shift_days: int = Field(20, title="Сдвиг дней для прогнозирования")
+    test_len: int = Field(50, title="Длина тестового набора")
+    ticker_name: str = Field(None, title="Название тикера для фильтрации данных")
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "model_name": "ridge_model_2024",
+                "shift_days": 20,
+                "test_len": 50,
+                "ticker_name": "CL=F"
+            }
+        }
+
+class TrainModelResponse(BaseModel):
+    train_test_result: dict = Field(..., title="Результаты тренировки и тестирования")
+    model_stat: dict = Field(..., title="Статистика модели")
+    class Config:
+        schema_extra = {
+            "example": {
+                "train_test_result": {
+                    "dates_train": ["2024-01-01", "2024-01-02", ...],
+                    "y_train": [100.0, 101.5, ...],
+                    "y_train_pred": [99.8, 101.3, ...],
+                    "dates_test": ["2024-02-01", "2024-02-02", ...],
+                    "y_test": [102.0, 103.5, ...],
+                    "y_test_pred": [101.7, 103.4, ...],
+                    "ticker_name": "CL=F"
+                },
+                "model_stat": {
+                    "model_name": "ridge_model_2024",
+                    "shift_days": 5,
+                    "test_len": 30,
+                    "train_mse": 0.25,
+                    "test_mse": 0.30,
+                    "train_mape": 2.5,
+                    "test_mape": 3.0
+                }
+            }
+        }
+
 ModelList = List[Model]
 PredictionRequestList = List[PredicitonRequest]
 PredictionResponseList = List[PredicitonResponse]
 InferenceAttributeValueList = List[InferenceAttributeValue]
+TrainModelResponseList = List[TrainModelResponse]
+TrainNewModelRequestList = List[TrainNewModelRequest]

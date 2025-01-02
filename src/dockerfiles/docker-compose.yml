@@ -1,0 +1,17 @@
+services:
+  future-price-predict-api:
+    build:
+      context: ..
+      dockerfile: dockerfiles/server/dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../.env
+  future-price-predict-ui:
+    build:
+      context: ..
+      dockerfile: dockerfiles/client/dockerfile
+    ports:
+      - "8501:8501"
+    env_file:
+      - ../.env    

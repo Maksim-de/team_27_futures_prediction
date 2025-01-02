@@ -1,1 +1,480 @@
 2025-01-02 15:32:55,790 - price_prediction_api - INFO - Starting the application...
+2025-01-02 16:44:40,937 - price_prediction_api - INFO - Starting the application...
+2025-01-02 16:45:03,128 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:45:03,128 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:45:03,131 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:45:03,131 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:45:03,135 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:45:03,135 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:45:03,136 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:45:03,136 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:45:07,226 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:45:07,226 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:45:07,226 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:45:07,226 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:45:07,227 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 16:45:07,227 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 16:46:02,494 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:46:02,494 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:46:02,497 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:46:02,497 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:46:30,081 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:46:30,081 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:46:30,083 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:46:30,083 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:46:30,084 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:46:30,084 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:46:30,085 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:46:30,085 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:46:34,169 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:46:34,169 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:46:34,170 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:46:34,170 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:46:34,170 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 16:46:34,170 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 16:49:04,043 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:49:04,043 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:49:04,047 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:49:04,047 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:49:04,049 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:49:04,049 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:49:04,050 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:49:04,050 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:49:08,108 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:49:08,108 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:49:08,109 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:49:08,109 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:49:08,110 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 16:49:08,110 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 16:49:12,177 - price_prediction_api - INFO - Get News Sentiment endpoint (+)
+2025-01-02 16:49:12,177 - price_prediction_api - INFO - Get News Sentiment endpoint (+)
+2025-01-02 16:49:12,177 - price_prediction_api - INFO - get_news_sentiment_table(+)
+2025-01-02 16:49:12,177 - price_prediction_api - INFO - get_news_sentiment_table(+)
+2025-01-02 16:49:16,260 - price_prediction_api - INFO - Get data Status endpoint (+)
+2025-01-02 16:49:16,260 - price_prediction_api - INFO - Get data Status endpoint (+)
+2025-01-02 16:49:16,262 - price_prediction_api - INFO - get_data_status(+)
+2025-01-02 16:49:16,262 - price_prediction_api - INFO - get_data_status(+)
+2025-01-02 16:49:20,340 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:49:20,340 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:49:20,341 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:49:20,341 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:49:20,341 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 16:49:20,341 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 16:49:24,425 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:49:24,425 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:49:24,426 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:49:24,426 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:49:24,426 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:49:24,426 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:49:24,426 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:49:24,426 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:55:43,830 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:55:43,830 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 16:55:43,830 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:55:43,830 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 16:55:47,894 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:55:47,894 - price_prediction_api - INFO - list_models(+)
+2025-01-02 16:55:47,895 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:55:47,895 - price_prediction_api - INFO - list_models(-)
+2025-01-02 16:55:47,895 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:55:47,895 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:55:47,895 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:55:47,895 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 16:55:47,895 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 16:55:47,895 - price_prediction_api - INFO - DB_CONFIG={'host': None, 'user': None, 'password': None, 'database': None}
+2025-01-02 17:00:41,402 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 17:00:41,402 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 17:00:41,402 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 17:00:41,402 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 17:17:47,915 - price_prediction_api - INFO - Starting the application...
+2025-01-02 17:18:23,906 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 17:18:23,906 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 17:18:23,906 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 17:18:23,906 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 17:18:23,948 - price_prediction_api - INFO - connected to database
+2025-01-02 17:18:23,948 - price_prediction_api - INFO - connected to database
+2025-01-02 17:18:23,963 - price_prediction_api - INFO - sql query executed
+2025-01-02 17:18:23,963 - price_prediction_api - INFO - sql query executed
+2025-01-02 17:18:23,964 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 17:18:23,964 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 17:18:23,964 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 17:18:23,964 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 17:18:33,125 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 17:18:33,125 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 17:18:33,126 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 17:18:33,126 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 17:18:33,148 - price_prediction_api - INFO - connected to database
+2025-01-02 17:18:33,148 - price_prediction_api - INFO - connected to database
+2025-01-02 17:18:33,167 - price_prediction_api - INFO - sql query executed
+2025-01-02 17:18:33,167 - price_prediction_api - INFO - sql query executed
+2025-01-02 17:18:33,168 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 17:18:33,168 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 17:18:33,168 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 17:18:33,168 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 17:18:33,173 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 17:18:33,173 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 17:18:33,174 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 17:18:33,174 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 17:18:33,174 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 17:18:33,174 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 17:18:33,199 - price_prediction_api - INFO - Connected to DB
+2025-01-02 17:18:33,199 - price_prediction_api - INFO - Connected to DB
+2025-01-02 17:18:33,221 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 17:18:33,221 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 17:18:33,221 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 17:18:33,221 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 17:18:33,222 - price_prediction_api - INFO - list_models(+)
+2025-01-02 17:18:33,222 - price_prediction_api - INFO - list_models(+)
+2025-01-02 17:18:33,225 - price_prediction_api - INFO - list_models(-)
+2025-01-02 17:18:33,225 - price_prediction_api - INFO - list_models(-)
+2025-01-02 17:18:33,269 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-02 17:18:33,269 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-02 17:18:33,270 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 17:18:33,270 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 17:18:34,217 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 17:18:34,217 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 17:18:34,250 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 17:18:34,250 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 18:35:40,115 - price_prediction_api - INFO - Starting the application...
+2025-01-02 18:35:57,258 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 18:35:57,258 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 18:35:57,259 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 18:35:57,259 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 18:35:57,306 - price_prediction_api - INFO - connected to database
+2025-01-02 18:35:57,306 - price_prediction_api - INFO - connected to database
+2025-01-02 18:35:57,325 - price_prediction_api - INFO - sql query executed
+2025-01-02 18:35:57,325 - price_prediction_api - INFO - sql query executed
+2025-01-02 18:35:57,325 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 18:35:57,325 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 18:35:57,325 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 18:35:57,325 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - list_models(+)
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - list_models(+)
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - list_models(-)
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - list_models(-)
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 18:35:57,343 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 18:35:57,376 - price_prediction_api - INFO - Connected to DB
+2025-01-02 18:35:57,376 - price_prediction_api - INFO - Connected to DB
+2025-01-02 18:35:57,402 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 18:35:57,402 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 18:35:57,402 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 18:35:57,402 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 18:35:57,419 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-02 18:35:57,419 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-02 18:35:57,420 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 18:35:57,420 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 18:35:59,145 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 18:35:59,145 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 18:35:59,176 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 18:35:59,176 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:11:22,721 - price_prediction_api - INFO - Starting the application...
+2025-01-02 19:11:50,504 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 19:11:50,504 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 19:11:50,504 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 19:11:50,504 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 19:11:50,570 - price_prediction_api - INFO - connected to database
+2025-01-02 19:11:50,570 - price_prediction_api - INFO - connected to database
+2025-01-02 19:11:50,603 - price_prediction_api - INFO - sql query executed
+2025-01-02 19:11:50,603 - price_prediction_api - INFO - sql query executed
+2025-01-02 19:11:50,603 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 19:11:50,603 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 19:11:50,603 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 19:11:50,603 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 19:11:50,619 - price_prediction_api - INFO - list_models(+)
+2025-01-02 19:11:50,619 - price_prediction_api - INFO - list_models(+)
+2025-01-02 19:11:50,621 - price_prediction_api - INFO - list_models(-)
+2025-01-02 19:11:50,621 - price_prediction_api - INFO - list_models(-)
+2025-01-02 19:11:50,621 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:11:50,621 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:11:50,621 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:11:50,621 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:11:50,621 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 19:11:50,621 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 19:11:50,866 - price_prediction_api - INFO - Connected to DB
+2025-01-02 19:11:50,866 - price_prediction_api - INFO - Connected to DB
+2025-01-02 19:11:50,887 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:11:50,887 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:11:50,887 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:11:50,887 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:11:50,909 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-02 19:11:50,909 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-02 19:11:50,911 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 19:11:50,911 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 19:11:52,141 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:11:52,141 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:11:52,221 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:11:52,221 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:21:10,059 - price_prediction_api - INFO - Starting the application...
+2025-01-02 19:21:49,570 - price_prediction_api - INFO - Root endpoint
+2025-01-02 19:21:49,570 - price_prediction_api - INFO - Root endpoint
+2025-01-02 19:30:35,077 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:30:35,077 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:30:35,078 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:30:35,078 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:30:35,078 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 19:30:35,078 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 19:30:35,109 - price_prediction_api - INFO - Connected to DB
+2025-01-02 19:30:35,109 - price_prediction_api - INFO - Connected to DB
+2025-01-02 19:30:35,129 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:30:35,129 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:30:35,130 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:30:35,130 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:30:35,131 - price_prediction_api - INFO - list_models(+)
+2025-01-02 19:30:35,131 - price_prediction_api - INFO - list_models(+)
+2025-01-02 19:30:35,133 - price_prediction_api - INFO - list_models(-)
+2025-01-02 19:30:35,133 - price_prediction_api - INFO - list_models(-)
+2025-01-02 19:30:35,134 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 19:30:35,134 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-02 19:30:35,135 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 19:30:35,135 - price_prediction_api - INFO - get_price_table(+)
+2025-01-02 19:30:35,154 - price_prediction_api - INFO - connected to database
+2025-01-02 19:30:35,154 - price_prediction_api - INFO - connected to database
+2025-01-02 19:30:35,171 - price_prediction_api - INFO - sql query executed
+2025-01-02 19:30:35,171 - price_prediction_api - INFO - sql query executed
+2025-01-02 19:30:35,172 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 19:30:35,172 - price_prediction_api - INFO - get_price_table(-)
+2025-01-02 19:30:35,173 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 19:30:35,173 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-02 19:30:35,208 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-02 19:30:35,208 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-02 19:30:35,208 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 19:30:35,208 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-02 19:30:35,921 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:30:35,921 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-02 19:30:35,948 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-02 19:30:35,948 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:07:03,395 - price_prediction_api - INFO - Starting the application...
+2025-01-03 01:09:47,365 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:09:47,365 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:09:47,366 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:09:47,366 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:09:47,424 - price_prediction_api - INFO - connected to database
+2025-01-03 01:09:47,424 - price_prediction_api - INFO - connected to database
+2025-01-03 01:09:47,487 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:09:47,487 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:09:47,492 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:09:47,492 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:09:47,493 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:09:47,493 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:09:47,505 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:09:47,505 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:09:47,506 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:09:47,506 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:09:47,507 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:09:47,507 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:09:47,539 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:09:47,539 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:09:47,561 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:09:47,561 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:09:47,562 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:09:47,562 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:09:47,565 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:09:47,565 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:09:47,575 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:09:47,575 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:09:47,626 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:09:47,626 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:09:47,628 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:09:47,628 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:09:49,650 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:09:49,650 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:09:49,685 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:09:49,685 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:32,725 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:10:32,725 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:10:32,726 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:10:32,726 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:10:32,728 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:10:32,728 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:10:32,729 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:10:32,729 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:10:33,985 - price_prediction_api - INFO - connected to database
+2025-01-03 01:10:33,985 - price_prediction_api - INFO - connected to database
+2025-01-03 01:10:34,048 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:10:34,048 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:10:34,049 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:10:34,049 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:10:34,049 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:10:34,049 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:10:34,053 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:34,053 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:34,054 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:34,054 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:34,055 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:10:34,055 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:10:34,085 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:10:34,085 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:10:34,105 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:34,105 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:34,106 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:34,106 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:34,120 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:10:34,120 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:10:34,121 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:10:34,121 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:10:35,128 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:35,128 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:35,183 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:35,183 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:48,451 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:10:48,451 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:10:48,453 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:10:48,453 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:10:48,455 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:48,455 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:48,455 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:48,455 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:48,456 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:10:48,456 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:10:48,830 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:10:48,830 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:10:48,852 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:48,852 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:48,853 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:48,853 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:48,855 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:10:48,855 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:10:48,856 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:10:48,856 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:10:49,130 - price_prediction_api - INFO - connected to database
+2025-01-03 01:10:49,130 - price_prediction_api - INFO - connected to database
+2025-01-03 01:10:49,252 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:10:49,252 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:10:49,253 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:10:49,253 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:10:49,254 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:10:49,254 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:10:49,270 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:10:49,270 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:10:49,270 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:10:49,270 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:10:52,515 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:52,515 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:10:53,573 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:10:53,573 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:11:12,567 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:11:12,567 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:11:12,567 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:11:12,567 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:11:12,567 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:11:12,567 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:11:12,593 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:11:12,593 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:11:12,613 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:11:12,613 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:11:12,614 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:11:12,614 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:11:12,617 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:11:12,617 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:11:12,620 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:11:12,620 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:11:12,622 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:11:12,622 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:11:12,623 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:11:12,623 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:11:12,643 - price_prediction_api - INFO - connected to database
+2025-01-03 01:11:12,643 - price_prediction_api - INFO - connected to database
+2025-01-03 01:11:12,665 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:11:12,665 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:11:12,668 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:11:12,668 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:11:12,670 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:11:12,670 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:11:12,697 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:11:12,697 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:11:12,697 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:11:12,697 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:11:13,480 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:11:13,480 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:11:13,751 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:11:13,751 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:25:24,026 - price_prediction_api - INFO - Starting the application...
+2025-01-03 01:25:41,012 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:25:41,012 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:25:41,012 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:25:41,012 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:25:41,012 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:25:41,012 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:25:41,044 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:25:41,044 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:25:41,066 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:25:41,066 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:25:41,067 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:25:41,067 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:25:41,070 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:25:41,070 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:25:41,071 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:25:41,071 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:25:41,098 - price_prediction_api - INFO - connected to database
+2025-01-03 01:25:41,098 - price_prediction_api - INFO - connected to database
+2025-01-03 01:25:41,221 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:25:41,221 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:25:41,224 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:25:41,224 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:25:41,225 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:25:41,225 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:25:41,229 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:25:41,229 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:25:41,231 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:25:41,231 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:25:41,248 - price_prediction_api - INFO - predict_price(+)
+2025-01-03 01:25:41,248 - price_prediction_api - INFO - predict_price(+)
+2025-01-03 01:26:42,652 - price_prediction_api - INFO - Starting the application...
+2025-01-03 01:26:55,781 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:26:55,781 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:26:55,782 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:26:55,782 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:26:55,782 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:26:55,782 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:26:55,834 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:26:55,834 - price_prediction_api - INFO - Connected to DB
+2025-01-03 01:26:55,852 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:26:55,852 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:26:55,853 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:26:55,853 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:26:55,855 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:26:55,855 - price_prediction_api - INFO - Get Price Table endpoint (+)
+2025-01-03 01:26:55,855 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:26:55,855 - price_prediction_api - INFO - get_price_table(+)
+2025-01-03 01:26:55,882 - price_prediction_api - INFO - connected to database
+2025-01-03 01:26:55,882 - price_prediction_api - INFO - connected to database
+2025-01-03 01:26:55,933 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:26:55,933 - price_prediction_api - INFO - sql query executed
+2025-01-03 01:26:55,934 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:26:55,934 - price_prediction_api - INFO - get_price_table(-)
+2025-01-03 01:26:55,934 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:26:55,934 - price_prediction_api - INFO - Get Price Table endpoint (-)
+2025-01-03 01:26:55,937 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:26:55,937 - price_prediction_api - INFO - list_models(+)
+2025-01-03 01:26:55,938 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:26:55,938 - price_prediction_api - INFO - list_models(-)
+2025-01-03 01:26:55,949 - price_prediction_api - INFO - predict_price(+)
+2025-01-03 01:26:55,949 - price_prediction_api - INFO - predict_price(+)
+2025-01-03 01:26:55,950 - price_prediction_api - INFO - Found model file: .\models/BZ_F_model_bundle.pkl
+2025-01-03 01:26:55,950 - price_prediction_api - INFO - Found model file: .\models/BZ_F_model_bundle.pkl
+2025-01-03 01:26:55,951 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:26:55,951 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:26:55,951 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:26:55,951 - price_prediction_api - INFO - DB_CONFIG={'host': 'mysql.7e38bf8aa2a7.hosting.myjino.ru', 'user': 'j06500307', 'password': 'Gvw88YdWw', 'database': 'j06500307'}
+2025-01-03 01:26:57,196 - price_prediction_api - INFO - predict_price(-)
+2025-01-03 01:26:57,196 - price_prediction_api - INFO - predict_price(-)
+2025-01-03 01:26:57,207 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:26:57,207 - price_prediction_api - INFO - list_inference_attributes(+)
+2025-01-03 01:26:57,235 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:26:57,235 - price_prediction_api - INFO - list_inference_attributes(-)
+2025-01-03 01:28:57,374 - price_prediction_api - INFO - Starting the application...
+2025-01-03 01:29:12,274 - price_prediction_api - INFO - predict_price(+)
+2025-01-03 01:29:12,274 - price_prediction_api - INFO - predict_price(+)
+2025-01-03 01:29:12,276 - price_prediction_api - INFO - Found model file: .\models/BZ_F_model_bundle.pkl
+2025-01-03 01:29:12,276 - price_prediction_api - INFO - Found model file: .\models/BZ_F_model_bundle.pkl
+2025-01-03 01:29:12,277 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:29:12,277 - price_prediction_api - INFO - get_data_from_db(+)
+2025-01-03 01:29:12,277 - price_prediction_api - INFO - DB_HOST=mysql.7e38bf8aa2a7.hosting.myjino.ru
+2025-01-03 01:29:12,277 - price_prediction_api - INFO - DB_HOST=mysql.7e38bf8aa2a7.hosting.myjino.ru
+2025-01-03 01:29:13,707 - price_prediction_api - INFO - predict_price(-)
+2025-01-03 01:29:13,707 - price_prediction_api - INFO - predict_price(-)

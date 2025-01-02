@@ -1,0 +1,65 @@
+2025-01-03 01:08:47,192 - EDA - DEBUG - Starting application
+2025-01-03 01:08:47,194 - EDA - INFO - Selected date range: 2024-01-01 - 2025-01-03
+2025-01-03 01:08:47,196 - EDA - DEBUG - Starting data fetching for ticker: BZ=F
+2025-01-03 01:09:47,344 - EDA - DEBUG - Starting application
+2025-01-03 01:09:47,348 - EDA - INFO - Selected date range: 2024-01-01 - 2025-01-03
+2025-01-03 01:09:47,352 - EDA - DEBUG - Starting data fetching for ticker: BZ=F
+2025-01-03 01:09:47,585 - EDA - DEBUG - End json_to_dataframe download price: BZ=F
+2025-01-03 01:09:47,587 - EDA - DEBUG - Options indicatyors: ['adj_close', 'ATR', 'BB_lower', 'BB_middle', 'BB_upper', 'CCI', 'close', 'close_lag10', 'close_lag3', 'close_lag30', 'close_lag5', 'close_lag60', 'dema', 'ema', 'high', 'low', 'MACD', 'MACD_Signal', 'MOM', 'open', 'ROC', 'rsi', 'sma', 'Stochastic_D', 'Stochastic_K', 'tema', 'volume', 'Williams_R', 'wma']
+2025-01-03 01:09:47,607 - EDA - DEBUG - End json_to_dataframe option model: BZ=F
+2025-01-03 01:09:47,613 - EDA - DEBUG - Start predict: BZ_F_model_bundle
+2025-01-03 01:09:49,647 - EDA - DEBUG - End predict: BZ_F_model_bundle
+2025-01-03 01:09:49,694 - EDA - INFO - Start visualization
+2025-01-03 01:09:49,914 - EDA - INFO - End visualization
+2025-01-03 01:09:50,853 - EDA - DEBUG - End application
+2025-01-03 01:10:32,717 - EDA - DEBUG - Starting application
+2025-01-03 01:10:32,719 - EDA - INFO - Selected date range: 2024-01-01 - 2025-01-03
+2025-01-03 01:10:32,721 - EDA - DEBUG - Starting data fetching for ticker: CL=F
+2025-01-03 01:10:34,109 - EDA - DEBUG - End json_to_dataframe download price: CL=F
+2025-01-03 01:10:34,110 - EDA - DEBUG - Options indicatyors: ['adj_close', 'ATR', 'BB_lower', 'BB_middle', 'BB_upper', 'CCI', 'close', 'close_lag10', 'close_lag3', 'close_lag30', 'close_lag5', 'close_lag60', 'dema', 'ema', 'high', 'low', 'MACD', 'MACD_Signal', 'MOM', 'open', 'ROC', 'rsi', 'sma', 'Stochastic_D', 'Stochastic_K', 'tema', 'volume', 'Williams_R', 'wma']
+2025-01-03 01:10:34,112 - EDA - DEBUG - End json_to_dataframe option model: CL=F
+2025-01-03 01:10:34,116 - EDA - DEBUG - Start predict: BZ_F_model_bundle
+2025-01-03 01:10:35,126 - EDA - DEBUG - End predict: BZ_F_model_bundle
+2025-01-03 01:10:35,188 - EDA - INFO - Start visualization
+2025-01-03 01:10:35,214 - EDA - INFO - End visualization
+2025-01-03 01:10:35,283 - EDA - DEBUG - End application
+2025-01-03 01:10:48,444 - EDA - DEBUG - Starting application
+2025-01-03 01:10:48,446 - EDA - INFO - Selected date range: 2024-01-01 - 2025-01-03
+2025-01-03 01:10:48,448 - EDA - DEBUG - Starting data fetching for ticker: CL=F
+2025-01-03 01:10:49,259 - EDA - DEBUG - End json_to_dataframe download price: CL=F
+2025-01-03 01:10:49,260 - EDA - DEBUG - Options indicatyors: ['adj_close', 'ATR', 'BB_lower', 'BB_middle', 'BB_upper', 'CCI', 'close', 'close_lag10', 'close_lag3', 'close_lag30', 'close_lag5', 'close_lag60', 'dema', 'ema', 'high', 'low', 'MACD', 'MACD_Signal', 'MOM', 'open', 'ROC', 'rsi', 'sma', 'Stochastic_D', 'Stochastic_K', 'tema', 'volume', 'Williams_R', 'wma']
+2025-01-03 01:10:49,263 - EDA - DEBUG - End json_to_dataframe option model: CL=F
+2025-01-03 01:10:49,266 - EDA - DEBUG - Start predict: CL_F_model_bundle
+2025-01-03 01:10:52,513 - EDA - DEBUG - End predict: CL_F_model_bundle
+2025-01-03 01:10:53,577 - EDA - INFO - Start visualization
+2025-01-03 01:10:53,596 - EDA - INFO - End visualization
+2025-01-03 01:10:53,652 - EDA - DEBUG - End application
+2025-01-03 01:11:12,561 - EDA - DEBUG - Starting application
+2025-01-03 01:11:12,563 - EDA - INFO - Selected date range: 2024-01-01 - 2025-01-03
+2025-01-03 01:11:12,564 - EDA - DEBUG - Starting data fetching for ticker: CL=F
+2025-01-03 01:11:12,682 - EDA - DEBUG - End json_to_dataframe download price: CL=F
+2025-01-03 01:11:12,683 - EDA - DEBUG - Options indicatyors: ['adj_close', 'ATR', 'BB_lower', 'BB_middle', 'BB_upper', 'CCI', 'close', 'close_lag10', 'close_lag3', 'close_lag30', 'close_lag5', 'close_lag60', 'dema', 'ema', 'high', 'low', 'MACD', 'MACD_Signal', 'MOM', 'open', 'ROC', 'rsi', 'sma', 'Stochastic_D', 'Stochastic_K', 'tema', 'volume', 'Williams_R', 'wma']
+2025-01-03 01:11:12,688 - EDA - DEBUG - End json_to_dataframe option model: CL=F
+2025-01-03 01:11:12,692 - EDA - DEBUG - Start predict: CL_F_model_bundle
+2025-01-03 01:11:13,475 - EDA - DEBUG - End predict: CL_F_model_bundle
+2025-01-03 01:11:13,760 - EDA - INFO - Start visualization
+2025-01-03 01:11:13,840 - EDA - INFO - End visualization
+2025-01-03 01:11:14,044 - EDA - DEBUG - End application
+2025-01-03 01:25:41,002 - EDA - DEBUG - Starting application
+2025-01-03 01:25:41,005 - EDA - INFO - Selected date range: 2024-01-01 - 2025-01-03
+2025-01-03 01:25:41,008 - EDA - DEBUG - Starting data fetching for ticker: BZ=F
+2025-01-03 01:25:41,235 - EDA - DEBUG - End json_to_dataframe download price: BZ=F
+2025-01-03 01:25:41,235 - EDA - DEBUG - Options indicatyors: ['adj_close', 'ATR', 'BB_lower', 'BB_middle', 'BB_upper', 'CCI', 'close', 'close_lag10', 'close_lag3', 'close_lag30', 'close_lag5', 'close_lag60', 'dema', 'ema', 'high', 'low', 'MACD', 'MACD_Signal', 'MOM', 'open', 'ROC', 'rsi', 'sma', 'Stochastic_D', 'Stochastic_K', 'tema', 'volume', 'Williams_R', 'wma']
+2025-01-03 01:25:41,241 - EDA - DEBUG - End json_to_dataframe option model: BZ=F
+2025-01-03 01:25:41,245 - EDA - DEBUG - Start predict: BZ_F_model_bundle
+2025-01-03 01:26:55,774 - EDA - DEBUG - Starting application
+2025-01-03 01:26:55,776 - EDA - INFO - Selected date range: 2024-01-01 - 2025-01-03
+2025-01-03 01:26:55,778 - EDA - DEBUG - Starting data fetching for ticker: BZ=F
+2025-01-03 01:26:55,940 - EDA - DEBUG - End json_to_dataframe download price: BZ=F
+2025-01-03 01:26:55,941 - EDA - DEBUG - Options indicatyors: ['adj_close', 'ATR', 'BB_lower', 'BB_middle', 'BB_upper', 'CCI', 'close', 'close_lag10', 'close_lag3', 'close_lag30', 'close_lag5', 'close_lag60', 'dema', 'ema', 'high', 'low', 'MACD', 'MACD_Signal', 'MOM', 'open', 'ROC', 'rsi', 'sma', 'Stochastic_D', 'Stochastic_K', 'tema', 'volume', 'Williams_R', 'wma']
+2025-01-03 01:26:55,944 - EDA - DEBUG - End json_to_dataframe option model: BZ=F
+2025-01-03 01:26:55,946 - EDA - DEBUG - Start predict: BZ_F_model_bundle
+2025-01-03 01:26:57,205 - EDA - DEBUG - End predict: BZ_F_model_bundle
+2025-01-03 01:26:57,238 - EDA - INFO - Start visualization
+2025-01-03 01:26:57,274 - EDA - INFO - End visualization
+2025-01-03 01:26:57,452 - EDA - DEBUG - End application

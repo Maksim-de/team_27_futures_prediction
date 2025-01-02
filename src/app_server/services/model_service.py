@@ -26,7 +26,7 @@ def get_data_from_db():
     :return: pandas dataframe
     """
     logger.info("get_data_from_db(+)")
-    logger.info(f"DB_CONFIG={DB_CONFIG}")
+    logger.info(f"DB_HOST={DB_CONFIG['host']}")
 
     connection = mariadb.connect(**DB_CONFIG)
 
@@ -68,7 +68,10 @@ def predict_price(model_name, ticker_name, start_date, end_date, data_source="db
     :param end_date: end date of prediction period
     :return: ['business_date', 'predict_value']
     """
-    file_path = f"models/{model_name}.pkl"
+    logger.info(f"predict_price(+)")
+    models_dir = find_model_folder(".")
+    file_path = f"{models_dir}/{model_name}.pkl"
+    logger.info(f"Found model file: {file_path}")
 
     with open(file_path, "rb") as f:
         bundle = pickle.load(f)
@@ -102,6 +105,7 @@ def predict_price(model_name, ticker_name, start_date, end_date, data_source="db
     result = (result.loc[result.business_date.astype(str)>=str(start_date)]
                     .loc[result.business_date.astype(str)<=str(end_date)])
 
+    logger.info(f"predict_price(-)")
     return result
 
 

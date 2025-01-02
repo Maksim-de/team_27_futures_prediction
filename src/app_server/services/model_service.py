@@ -105,11 +105,27 @@ def predict_price(model_name, ticker_name, start_date, end_date, data_source="db
     return result
 
 
-def find_and_list_model_files(root_folder):
+def find_model_folder(root_folder):
+    """
+    Inside docker image relative location of the model folder will be different from the local setup.
+    This function traverses through the nested directories from the root and returns location of "models" directory.
+    :param root_folder: str
+    :return: str
+    """
     for dirpath, dirnames, filenames in os.walk(root_folder):
         if "models" in dirpath and "venv" not in dirpath:
-            return [os.path.join(dirpath, file) for file in os.listdir(dirpath)]
+            return dirpath
     return []
+
+def find_and_list_model_files(root_folder):
+    """
+    List model files in "models" directory
+    :param root_folder: str
+    :return: str
+    """
+    models_dir = find_model_folder(root_folder)
+    return [os.path.join(models_dir, file) for file in os.listdir(models_dir)]
+
 
 
 def list_models():
@@ -216,6 +232,8 @@ def list_inference_attribute_values(attribute_name, ticker_id, date_from, date_t
 
 def train_new_model_logic(df, model_name, shift_days, test_len, ticker_name=None):
     """
+    Train a new model usiung uploaded dataset
+
     :param df: uploaded frame
     :param model_name: name after saving
     :param shift_days: value needed to control forecasting horizon
@@ -289,10 +307,12 @@ def train_new_model_logic(df, model_name, shift_days, test_len, ticker_name=None
     }
 
     # Сохраняем в models/{model_name}.pkl через pickle
-    if not os.path.exists("models"):
-        os.makedirs("models")
+    models_dir = find_model_folder(".")
+    if not os.path.exists(models_dir):
+        models_dir = "models"
+        os.makedirs(models_dir)
     file_name = f"{model_name}.pkl"
-    file_path = os.path.join("models", file_name)
+    file_path = os.path.join(models_dir, file_name)
 
     with open(file_path, "wb") as f:
         pickle.dump(bundle, f)

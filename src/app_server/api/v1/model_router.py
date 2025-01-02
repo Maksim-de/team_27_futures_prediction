@@ -19,6 +19,7 @@ logger = getLogger("price_prediction_api")
              summary="Train a new ML model")
 async def train_model_handler(request: ModelList):
     """
+    Do not use. For future implementation.
     Start model training process
 
     :return:
